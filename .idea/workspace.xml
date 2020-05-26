@@ -58,6 +58,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -169,7 +170,7 @@
       <workItem from="1587036659962" duration="15072000" />
       <workItem from="1587386641813" duration="93000" />
       <workItem from="1590503363234" duration="455000" />
-      <workItem from="1590503839740" duration="1728000" />
+      <workItem from="1590503839740" duration="2530000" />
     </task>
     <servers />
   </component>
