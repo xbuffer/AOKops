@@ -10,7 +10,6 @@ class UserIPInfo(models.Model):
         verbose_name = u'用户访问地址信息表'
         verbose_name_plural = verbose_name
         db_table = "user_ip_info"
-        # atomic = False
 
 
 class BrowseInfo(models.Model):

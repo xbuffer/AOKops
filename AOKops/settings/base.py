@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
+sys.path.append(os.path.join(BASE_DIR, 'extra_apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -22,9 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 't%zc1emvo#-+5%40q2f(o97-g8zk8l%k(miazp+7bm-8_!#ked'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+#
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -74,8 +78,8 @@ WSGI_APPLICATION = 'AOKops.wsgi.application'
 
 DATABASES = {
     'default': {
-               'ENGINE': 'django.db.backends.sqlite3',
-               'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         # 'ENGINE': 'django.db.backends.mysql',
         # 'NAME': 'AOKops',
         # 'USER': 'admin',
@@ -123,11 +127,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# edit by colin@20200330
-EMAIL_HOST = "smtp.sohu.com"
-EMAIL_HOST_USER = "fgl1989624@sohu.com"
-EMAIL_HOST_PASSWORD = "R7YZULV98Q16"
-EMAIL_USER_TLS = False
 
 # edit by colin @20200328
 LOGGING = {
@@ -144,7 +143,7 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'formatter': 'verbose',
-            'filename': '/tmp/error.logs',
+            'filename': os.path.join(BASE_DIR, 'log', 'error.log'),
         },
     },
     'loggers': {

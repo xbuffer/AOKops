@@ -5,7 +5,8 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AOKops.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AOKops.settings.develop')
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AOKops.settings.product')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
