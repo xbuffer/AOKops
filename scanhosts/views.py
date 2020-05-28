@@ -13,7 +13,7 @@ def user_history(request):
     ip_lists = UserIPInfo.objects.all()
     infos = {}
     for item in ip_lists:
-        infos[item.ipv4_address] = [b_obj.useragent for b_obj in BrowseInfo.objects.filter(user_ip_id=item.id)]
+        infos[item.ipv4_address] = [b_obj.user_agent for b_obj in BrowseInfo.objects.filter(user_ip_id=item.id)]
     result = {
         "STATUS": "success",
         "INFO": infos,
