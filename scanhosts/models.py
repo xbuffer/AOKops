@@ -5,7 +5,7 @@ from django.db import models
 
 class ServerInfo(models.Model):
     """
-    收集物理物理设备信息
+    服务器设备信息
     """
     server_types = {
         (0, 'PC服务器'),

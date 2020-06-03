@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="get" action="scan.html">
+    <input type="search" name="scan" title="scan" class="scan" id="searchinput" value="请输入网段x.x.x.x/n或者IPx.x.x.x"
+           onkeydown="if (event.keyCode==13) {}" onblur="if(this.value=='')value='请输入网段x.x.x.x/n或者IPx.x.x.x';"
+           onfocus="if(this.value=='请输入网段x.x.x.x/n或者IPx.x.x.x')value='';" value="请输入网段x.x.x.x/n或者IPx.x.x.x"
+           style="width: 260px">
+    <button type="submit">开始扫描</button>
+</form>
+</body>
+</html>

@@ -1,4 +1,3 @@
-# 邮件报警类
 from django.core.mail import send_mail
 import time
 from AOKops import settings
@@ -6,6 +5,10 @@ import logging
 
 
 class SendMail(object):
+    """
+    邮件发送相关参数设置
+    """
+
     def __init__(self, receive_addr, sub_info, content_info):
         sub_data = time.strftime("%Y-%m-%d_%H:%M:%S", time.localtime())
         self.receive_addr = receive_addr

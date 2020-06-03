@@ -1,0 +1,12 @@
+hostsinfo:
+  nets: ['10.0.0']
+  ports: "22,222,2222,22222,222222"
+  ssh_key_file: ['/opt/key/first_rsa','/opt/key/second_rsa']
+  syscmd_list: ["cat /etc/issue",
+                "cat /etc/redhat-release",
+                "hostname",
+                "cat /sys/class/net/[^vtlsb]*/address||esxcfg-vmknic",
+                "dmidecode -s system-serial-number",
+                "dmidecode -s system-manufacturer",
+                "dmidecode -s system-product-name",
+  ]
