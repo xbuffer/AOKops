@@ -409,8 +409,8 @@ class EventLog(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = '事件纪录'
-        verbose_name_plural = "事件纪录"
+        verbose_name = '事件记录'
+        verbose_name_plural = "事件记录"
 
 
 class NewAssetApprovalZone(models.Model):
