@@ -7,5 +7,4 @@
  * @license MIT
  */
 import Filterizr from './Filterizr';
-
 export default Filterizr;

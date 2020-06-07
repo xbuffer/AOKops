@@ -29,39 +29,24 @@ declare module '@fullcalendar/timegrid/AbstractTimeGridView' {
         protected splitter: AllDaySplitter;
 
         render(props: ViewProps, context: ComponentContext): void;
-
         destroy(): void;
-
         _renderSkeleton(context: ComponentContext): void;
-
         _unrenderSkeleton(): void;
-
         renderSkeletonHtml(): string;
-
         getNowIndicatorUnit(): string;
-
         unrenderNowIndicator(): void;
-
         updateSize(isResize: boolean, viewHeight: number, isAuto: boolean): void;
-
         updateBaseSize(isResize: any, viewHeight: any, isAuto: any): void;
-
         computeScrollerHeight(viewHeight: any): number;
-
         computeDateScroll(duration: Duration): {
             top: any;
         };
-
         queryDateScroll(): {
             top: number;
         };
-
         applyDateScroll(scroll: any): void;
-
         renderHeadIntroHtml: () => string;
-
         axisStyleAttr(): string;
-
         renderTimeGridBgIntroHtml: () => string;
         renderTimeGridIntroHtml: () => string;
         renderDayGridBgIntroHtml: () => string;
@@ -93,10 +78,8 @@ declare module '@fullcalendar/timegrid/TimeGridView' {
         _renderSkeleton(context: ComponentContext): void;
 
         _unrenderSkeleton(): void;
-
         renderNowIndicator(date: any): void;
     }
-
     export function buildDayTable(dateProfile: DateProfile, dateProfileGenerator: DateProfileGenerator): DayTable;
 }
 
@@ -113,23 +96,19 @@ declare module '@fullcalendar/timegrid/TimeGrid' {
         DateProfile,
         Theme
     } from '@fullcalendar/core';
-
     export interface RenderProps {
         renderBgIntroHtml: () => string;
         renderIntroHtml: () => string;
     }
-
     export interface TimeGridSeg extends Seg {
         col: number;
         start: DateMarker;
         end: DateMarker;
     }
-
     export interface TimeGridCell {
         date: DateMarker;
         htmlAttrs?: string;
     }
-
     export interface TimeGridProps {
         dateProfile: DateProfile;
         cells: TimeGridCell[];
@@ -143,7 +122,6 @@ declare module '@fullcalendar/timegrid/TimeGrid' {
     }
 
     export {TimeGrid as default, TimeGrid};
-
     class TimeGrid extends DateComponent<TimeGridProps> {
         renderProps: RenderProps;
         slotDuration: Duration;
@@ -169,64 +147,36 @@ declare module '@fullcalendar/timegrid/TimeGrid' {
         mirrorContainerEls: HTMLElement[];
         highlightContainerEls: HTMLElement[];
         businessContainerEls: HTMLElement[];
-
         constructor(el: HTMLElement, renderProps: RenderProps);
-
         _processOptions(options: any): void;
-
         computeLabelInterval(slotDuration: any): any;
-
         render(props: TimeGridProps, context: ComponentContext): void;
-
         destroy(): void;
-
         updateSize(isResize: boolean): void;
-
         _renderSkeleton(theme: Theme): void;
-
         _renderSlats(dateProfile: DateProfile): void;
-
         renderSlatRowHtml(dateProfile: DateProfile): string;
-
         _renderColumns(cells: TimeGridCell[], dateProfile: DateProfile): void;
-
         _unrenderColumns(): void;
-
         renderContentSkeleton(): void;
-
         unrenderContentSkeleton(): void;
-
         groupSegsByCol(segs: any): any[];
-
         attachSegsByCol(segsByCol: any, containerEls: HTMLElement[]): void;
-
         getNowIndicatorUnit(): string;
-
         renderNowIndicator(segs: TimeGridSeg[], date: any): void;
-
         unrenderNowIndicator(): void;
-
         getTotalSlatHeight(): number;
-
         computeDateTop(when: DateMarker, startOfDayDate?: DateMarker): any;
-
         computeTimeTop(duration: Duration): any;
-
         computeSegVerticals(segs: any): void;
-
         assignSegVerticals(segs: any): void;
-
         generateSegVerticalCss(seg: any): {
             top: any;
             bottom: number;
         };
-
         buildPositionCaches(): void;
-
         buildColPositions(): void;
-
         buildSlatPositions(): void;
-
         positionToHit(positionLeft: any, positionTop: any): {
             col: any;
             dateSpan: {
@@ -244,17 +194,11 @@ declare module '@fullcalendar/timegrid/TimeGrid' {
                 bottom: any;
             };
         };
-
         _renderEventDrag(state: EventSegUiInteractionState): void;
-
         _unrenderEventDrag(state: EventSegUiInteractionState): void;
-
         _renderEventResize(state: EventSegUiInteractionState): void;
-
         _unrenderEventResize(state: EventSegUiInteractionState): void;
-
         _renderDateSelection(segs: Seg[]): void;
-
         _unrenderDateSelection(segs: Seg[]): void;
     }
 }
@@ -290,27 +234,17 @@ declare module '@fullcalendar/timegrid/SimpleTimeGrid' {
     }
 
     export {SimpleTimeGrid as default, SimpleTimeGrid};
-
     class SimpleTimeGrid extends DateComponent<SimpleTimeGridProps> {
         timeGrid: TimeGrid;
-
         constructor(timeGrid: TimeGrid);
-
         firstContext(context: ComponentContext): void;
-
         destroy(): void;
-
         render(props: SimpleTimeGridProps, context: ComponentContext): void;
-
         renderNowIndicator(date: DateMarker): void;
-
         buildPositionCaches(): void;
-
         queryHit(positionLeft: number, positionTop: number): Hit;
     }
-
     export function buildDayRanges(dayTable: DayTable, dateProfile: DateProfile, dateEnv: DateEnv): DateRange[];
-
     export class TimeGridSlicer extends Slicer<TimeGridSeg, [DateRange[]]> {
         sliceRange(range: DateRange, dayRanges: DateRange[]): TimeGridSeg[];
     }

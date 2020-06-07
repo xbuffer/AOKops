@@ -70,11 +70,11 @@ Google Maps).
 
         var defaultShow = options.series.images.show;
 
-        $.each(series, function (i, s) {
+      $.each(series, function (i, s) {
             if (!(defaultShow || s.images.show))
                 return;
 
-            if (s.data)
+        if (s.data)
                 s = s.data;
 
             $.each(s, function (i, p) {
@@ -96,7 +96,7 @@ Google Maps).
         });
     };
 
-    $.plot.image.load = function (urls, callback) {
+  $.plot.image.load = function (urls, callback) {
         var missing = urls.length, loaded = {};
         if (missing == 0)
             callback({});
@@ -105,9 +105,9 @@ Google Maps).
             var handler = function () {
                 --missing;
 
-                loaded[url] = this;
+              loaded[url] = this;
 
-                if (missing == 0)
+              if (missing == 0)
                     callback(loaded);
             };
 
@@ -115,16 +115,16 @@ Google Maps).
         });
     };
 
-    function drawSeries(plot, ctx, series) {
+  function drawSeries(plot, ctx, series) {
         var plotOffset = plot.getPlotOffset();
 
-        if (!series.images || !series.images.show)
+    if (!series.images || !series.images.show)
             return;
 
-        var points = series.datapoints.points,
+    var points = series.datapoints.points,
             ps = series.datapoints.pointsize;
 
-        for (var i = 0; i < points.length; i += ps) {
+    for (var i = 0; i < points.length; i += ps) {
             var img = points[i],
                 x1 = points[i + 1], y1 = points[i + 2],
                 x2 = points[i + 3], y2 = points[i + 4],
@@ -148,18 +148,18 @@ Google Maps).
                 y1 = tmp;
             }
 
-            // if the anchor is at the center of the pixel, expand the 
+      // if the anchor is at the center of the pixel, expand the
             // image by 1/2 pixel in each direction
             if (series.images.anchor == "center") {
-                tmp = 0.5 * (x2 - x1) / (img.width - 1);
-                x1 -= tmp;
-                x2 += tmp;
-                tmp = 0.5 * (y2 - y1) / (img.height - 1);
-                y1 -= tmp;
+              tmp = 0.5 * (x2 - x1) / (img.width - 1);
+              x1 -= tmp;
+              x2 += tmp;
+              tmp = 0.5 * (y2 - y1) / (img.height - 1);
+              y1 -= tmp;
                 y2 += tmp;
             }
 
-            // clip
+      // clip
             if (x1 == x2 || y1 == y2 ||
                 x1 >= xaxis.max || x2 <= xaxis.min ||
                 y1 >= yaxis.max || y2 <= yaxis.min)
@@ -186,12 +186,12 @@ Google Maps).
                 y2 = yaxis.max;
             }
 
-            x1 = xaxis.p2c(x1);
+      x1 = xaxis.p2c(x1);
             x2 = xaxis.p2c(x2);
             y1 = yaxis.p2c(y1);
             y2 = yaxis.p2c(y2);
 
-            // the transformation may have swapped us
+      // the transformation may have swapped us
             if (x1 > x2) {
                 tmp = x2;
                 x2 = x1;
@@ -204,12 +204,12 @@ Google Maps).
             }
 
             tmp = ctx.globalAlpha;
-            ctx.globalAlpha *= series.images.alpha;
-            ctx.drawImage(img,
-                sx1, sy1, sx2 - sx1, sy2 - sy1,
-                x1 + plotOffset.left, y1 + plotOffset.top,
-                x2 - x1, y2 - y1);
-            ctx.globalAlpha = tmp;
+      ctx.globalAlpha *= series.images.alpha;
+      ctx.drawImage(img,
+        sx1, sy1, sx2 - sx1, sy2 - sy1,
+        x1 + plotOffset.left, y1 + plotOffset.top,
+        x2 - x1, y2 - y1);
+      ctx.globalAlpha = tmp;
         }
     }
 
@@ -219,20 +219,20 @@ Google Maps).
 
         // format is Image, x1, y1, x2, y2 (opposite corners)
         datapoints.format = [
-            {required: true},
-            {x: true, number: true, required: true},
-            {y: true, number: true, required: true},
-            {x: true, number: true, required: true},
-            {y: true, number: true, required: true}
+          {required: true},
+          {x: true, number: true, required: true},
+          {y: true, number: true, required: true},
+          {x: true, number: true, required: true},
+          {y: true, number: true, required: true}
         ];
     }
 
-    function init(plot) {
+  function init(plot) {
         plot.hooks.processRawData.push(processRawData);
         plot.hooks.drawSeries.push(drawSeries);
     }
 
-    $.plot.plugins.push({
+  $.plot.plugins.push({
         init: init,
         options: options,
         name: 'image',

@@ -18,7 +18,6 @@ declare module '@fullcalendar/interaction/dnd/FeaturefulElementDragging' {
     import ElementMirror from '@fullcalendar/interaction/dnd/ElementMirror';
     import AutoScroller from '@fullcalendar/interaction/dnd/AutoScroller';
     export {FeaturefulElementDragging as default, FeaturefulElementDragging};
-
     class FeaturefulElementDragging extends ElementDragging {
         pointer: PointerDragging;
         mirror: ElementMirror;
@@ -32,33 +31,20 @@ declare module '@fullcalendar/interaction/dnd/FeaturefulElementDragging' {
         isDelayEnded: boolean;
         isDistanceSurpassed: boolean;
         delayTimeoutId: number | null;
-
         constructor(containerEl: HTMLElement);
-
         destroy(): void;
-
         onPointerDown: (ev: PointerDragEvent) => void;
         onPointerMove: (ev: PointerDragEvent) => void;
         onPointerUp: (ev: PointerDragEvent) => void;
-
         startDelay(ev: PointerDragEvent): void;
-
         handleDelayEnd(ev: PointerDragEvent): void;
-
         handleDistanceSurpassed(ev: PointerDragEvent): void;
-
         tryStartDrag(ev: PointerDragEvent): void;
-
         tryStopDrag(ev: PointerDragEvent): void;
-
         stopDrag(ev: PointerDragEvent): void;
-
         setIgnoreMove(bool: boolean): void;
-
         setMirrorIsVisible(bool: boolean): void;
-
         setMirrorNeedsRevert(bool: boolean): void;
-
         setAutoScrollEnabled(bool: boolean): void;
     }
 }
@@ -85,40 +71,25 @@ declare module '@fullcalendar/interaction/dnd/PointerDragging' {
         prevPageY: number;
         prevScrollX: number;
         prevScrollY: number;
-
         constructor(containerEl: EventTarget);
-
         destroy(): void;
-
         tryStart(ev: UIEvent): boolean;
-
         cleanup(): void;
-
         querySubjectEl(ev: UIEvent): HTMLElement;
-
         handleMouseDown: (ev: MouseEvent) => void;
         handleMouseMove: (ev: MouseEvent) => void;
         handleMouseUp: (ev: MouseEvent) => void;
-
         shouldIgnoreMouse(): number | boolean;
-
         handleTouchStart: (ev: TouchEvent) => void;
         handleTouchMove: (ev: TouchEvent) => void;
         handleTouchEnd: (ev: TouchEvent) => void;
         handleTouchScroll: () => void;
-
         cancelTouchScroll(): void;
-
         initScrollWatch(ev: PointerDragEvent): void;
-
         recordCoords(ev: PointerDragEvent): void;
-
         handleScroll: (ev: UIEvent) => void;
-
         destroyScrollWatch(): void;
-
         createEventFromMouse(ev: MouseEvent, isFirst?: boolean): PointerDragEvent;
-
         createEventFromTouch(ev: TouchEvent, isFirst?: boolean): PointerDragEvent;
     }
 }
@@ -127,7 +98,6 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalDraggabl
     import {PointerDragEvent} from '@fullcalendar/core';
     import FeaturefulElementDragging from '@fullcalendar/interaction/dnd/FeaturefulElementDragging';
     import {DragMetaGenerator} from '@fullcalendar/interaction/interactions-external/ExternalElementDragging';
-
     export interface ExternalDraggableSettings {
         eventData?: DragMetaGenerator;
         itemSelector?: string;
@@ -137,16 +107,12 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalDraggabl
     }
 
     export {ExternalDraggable as default, ExternalDraggable};
-
     class ExternalDraggable {
         dragging: FeaturefulElementDragging;
         settings: ExternalDraggableSettings;
-
         constructor(el: HTMLElement, settings?: ExternalDraggableSettings);
-
         handlePointerDown: (ev: PointerDragEvent) => void;
         handleDragStart: (ev: PointerDragEvent) => void;
-
         destroy(): void;
     }
 }
@@ -154,7 +120,6 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalDraggabl
 declare module '@fullcalendar/interaction/interactions-external/ThirdPartyDraggable' {
     import {DragMetaGenerator} from '@fullcalendar/interaction/interactions-external/ExternalElementDragging';
     import InferredElementDragging from '@fullcalendar/interaction/interactions-external/InferredElementDragging';
-
     export interface ThirdPartyDraggableSettings {
         eventData?: DragMetaGenerator;
         itemSelector?: string;
@@ -162,12 +127,9 @@ declare module '@fullcalendar/interaction/interactions-external/ThirdPartyDragga
     }
 
     export {ThirdPartyDraggable as default, ThirdPartyDraggable};
-
     class ThirdPartyDraggable {
         dragging: InferredElementDragging;
-
         constructor(containerOrSettings?: EventTarget | ThirdPartyDraggableSettings, settings?: ThirdPartyDraggableSettings);
-
         destroy(): void;
     }
 }
@@ -188,21 +150,13 @@ declare module '@fullcalendar/interaction/dnd/ElementMirror' {
         parentNode: HTMLElement;
         zIndex: number;
         revertDuration: number;
-
         start(sourceEl: HTMLElement, pageX: number, pageY: number): void;
-
         handleMove(pageX: number, pageY: number): void;
-
         setIsVisible(bool: boolean): void;
-
         stop(needsRevertAnimation: boolean, callback: () => void): void;
-
         doRevertAnimation(callback: () => void, revertDuration: number): void;
-
         cleanup(): void;
-
         updateElPosition(): void;
-
         getMirrorEl(): HTMLElement;
     }
 }
@@ -225,13 +179,9 @@ declare module '@fullcalendar/interaction/dnd/AutoScroller' {
         everMovedDown: boolean;
         everMovedLeft: boolean;
         everMovedRight: boolean;
-
         start(pageX: number, pageY: number): void;
-
         handleMove(pageX: number, pageY: number): void;
-
         stop(): void;
-
         requestAnimation(now: number): void;
     }
 }
@@ -251,7 +201,6 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalElementD
     } from '@fullcalendar/core';
     import HitDragging from '@fullcalendar/interaction/interactions/HitDragging';
     export type DragMetaGenerator = DragMetaInput | ((el: HTMLElement) => DragMetaInput);
-
     export interface ExternalDropApi extends DatePointApi {
         draggedEl: HTMLElement;
         jsEvent: UIEvent;
@@ -259,27 +208,19 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalElementD
     }
 
     export {ExternalElementDragging as default, ExternalElementDragging};
-
     class ExternalElementDragging {
         hitDragging: HitDragging;
         receivingCalendar: Calendar | null;
         droppableEvent: EventTuple | null;
         suppliedDragMeta: DragMetaGenerator | null;
         dragMeta: DragMeta | null;
-
         constructor(dragging: ElementDragging, suppliedDragMeta?: DragMetaGenerator);
-
         handleDragStart: (ev: PointerDragEvent) => void;
-
         buildDragMeta(subjectEl: HTMLElement): DragMeta;
-
         handleHitUpdate: (hit: Hit, isFinal: boolean, ev: PointerDragEvent) => void;
         handleDragEnd: (pev: PointerDragEvent) => void;
-
         displayDrag(nextCalendar: Calendar | null, state: EventInteractionState): void;
-
         clearDrag(): void;
-
         canDropElOnCalendar(el: HTMLElement, receivingCalendar: Calendar): boolean;
     }
 }
@@ -288,30 +229,23 @@ declare module '@fullcalendar/interaction/interactions-external/InferredElementD
     import {PointerDragEvent, ElementDragging} from '@fullcalendar/core';
     import PointerDragging from '@fullcalendar/interaction/dnd/PointerDragging';
     export {InferredElementDragging as default, InferredElementDragging};
-
     class InferredElementDragging extends ElementDragging {
         pointer: PointerDragging;
         shouldIgnoreMove: boolean;
         mirrorSelector: string;
         currentMirrorEl: HTMLElement | null;
-
         constructor(containerEl: HTMLElement);
-
         destroy(): void;
-
         handlePointerDown: (ev: PointerDragEvent) => void;
         handlePointerMove: (ev: PointerDragEvent) => void;
         handlePointerUp: (ev: PointerDragEvent) => void;
-
         setIgnoreMove(bool: boolean): void;
-
         setMirrorIsVisible(bool: boolean): void;
     }
 }
 
 declare module '@fullcalendar/interaction/scroll-geom-cache' {
     import {Rect, ScrollController} from '@fullcalendar/core';
-
     export abstract class ScrollGeomCache extends ScrollController {
         clientRect: Rect;
         origScrollTop: number;
@@ -324,41 +258,24 @@ declare module '@fullcalendar/interaction/scroll-geom-cache' {
         protected scrollHeight: number;
         protected clientWidth: number;
         protected clientHeight: number;
-
         constructor(scrollController: ScrollController, doesListening: boolean);
-
         abstract getEventTarget(): EventTarget;
-
         abstract computeClientRect(): Rect;
-
         destroy(): void;
-
         handleScroll: () => void;
-
         getScrollTop(): number;
-
         getScrollLeft(): number;
-
         setScrollTop(top: number): void;
-
         setScrollLeft(top: number): void;
-
         getClientWidth(): number;
-
         getClientHeight(): number;
-
         getScrollWidth(): number;
-
         getScrollHeight(): number;
-
         handleScrollChange(): void;
     }
-
     export class ElementScrollGeomCache extends ScrollGeomCache {
         constructor(el: HTMLElement, doesListening: boolean);
-
         getEventTarget(): EventTarget;
-
         computeClientRect(): {
             left: number;
             right: number;
@@ -366,14 +283,10 @@ declare module '@fullcalendar/interaction/scroll-geom-cache' {
             bottom: number;
         };
     }
-
     export class WindowScrollGeomCache extends ScrollGeomCache {
         constructor(doesListening: boolean);
-
         getEventTarget(): EventTarget;
-
         computeClientRect(): Rect;
-
         handleScrollChange(): void;
     }
 }
@@ -389,7 +302,6 @@ declare module '@fullcalendar/interaction/interactions/HitDragging' {
     } from '@fullcalendar/core';
     import OffsetTracker from '@fullcalendar/interaction/OffsetTracker';
     export {HitDragging as default, HitDragging};
-
     class HitDragging {
         droppableStore: InteractionSettingsStore;
         dragging: ElementDragging;
@@ -403,27 +315,18 @@ declare module '@fullcalendar/interaction/interactions/HitDragging' {
         movingHit: Hit | null;
         finalHit: Hit | null;
         coordAdjust?: Point;
-
         constructor(dragging: ElementDragging, droppableStore: InteractionSettingsStore);
-
         handlePointerDown: (ev: PointerDragEvent) => void;
-
         processFirstCoord(ev: PointerDragEvent): void;
-
         handleDragStart: (ev: PointerDragEvent) => void;
         handleDragMove: (ev: PointerDragEvent) => void;
         handlePointerUp: (ev: PointerDragEvent) => void;
         handleDragEnd: (ev: PointerDragEvent) => void;
-
         handleMove(ev: PointerDragEvent, forceHandle?: boolean): void;
-
         prepareHits(): void;
-
         releaseHits(): void;
-
         queryHitForOffset(offsetLeft: number, offsetTop: number): Hit | null;
     }
-
     export function isHitsEqual(hit0: Hit | null, hit1: Hit | null): boolean;
 }
 

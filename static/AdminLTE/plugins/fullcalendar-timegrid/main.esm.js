@@ -85,7 +85,6 @@ function __extends(d, b) {
     function __() {
         this.constructor = d;
     }
-
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
@@ -106,13 +105,11 @@ Does not own rendering. Use for low-level util methods by TimeGrid.
 */
 var TimeGridEventRenderer = /** @class */ (function (_super) {
     __extends(TimeGridEventRenderer, _super);
-
     function TimeGridEventRenderer(timeGrid) {
         var _this = _super.call(this) || this;
         _this.timeGrid = timeGrid;
         return _this;
     }
-
     TimeGridEventRenderer.prototype.renderSegs = function (context, segs, mirrorInfo) {
         _super.prototype.renderSegs.call(this, context, segs, mirrorInfo);
         // TODO: dont do every time. memoize
@@ -374,7 +371,6 @@ function buildSlotSegLevels(segs) {
     }
     return levels;
 }
-
 // For every segment, figure out the other segments that are in subsequent
 // levels that also occupy the same vertical space. Accumulate in seg.forwardSegs
 function computeForwardSlotSegs(levels) {
@@ -394,7 +390,6 @@ function computeForwardSlotSegs(levels) {
         }
     }
 }
-
 // Figure out which path forward (via seg.forwardSegs) results in the longest path until
 // the furthest edge is reached. The number of segments in this path will be seg.forwardPressure
 function computeSlotSegPressures(seg) {
@@ -414,7 +409,6 @@ function computeSlotSegPressures(seg) {
         seg.forwardPressure = forwardPressure;
     }
 }
-
 // Find all the segments in `otherSegs` that vertically collide with `seg`.
 // Append into an optionally-supplied `results` array and return.
 function computeSlotSegCollisions(seg, otherSegs, results) {
@@ -428,12 +422,10 @@ function computeSlotSegCollisions(seg, otherSegs, results) {
     }
     return results;
 }
-
 // Do these segments occupy the same vertical space?
 function isSlotSegCollision(seg1, seg2) {
     return seg1.bottom > seg2.top && seg1.top < seg2.bottom;
 }
-
 function buildTimeGridSegCompareObj(seg) {
     var obj = buildSegCompareObj(seg);
     obj.forwardPressure = seg.forwardPressure;
@@ -443,11 +435,9 @@ function buildTimeGridSegCompareObj(seg) {
 
 var TimeGridMirrorRenderer = /** @class */ (function (_super) {
     __extends(TimeGridMirrorRenderer, _super);
-
     function TimeGridMirrorRenderer() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-
     TimeGridMirrorRenderer.prototype.attachSegs = function (segs, mirrorInfo) {
         this.segsByCol = this.timeGrid.groupSegsByCol(segs);
         this.timeGrid.attachSegsByCol(this.segsByCol, this.timeGrid.mirrorContainerEls);
@@ -470,13 +460,11 @@ var TimeGridMirrorRenderer = /** @class */ (function (_super) {
 
 var TimeGridFillRenderer = /** @class */ (function (_super) {
     __extends(TimeGridFillRenderer, _super);
-
     function TimeGridFillRenderer(timeGrid) {
         var _this = _super.call(this) || this;
         _this.timeGrid = timeGrid;
         return _this;
     }
-
     TimeGridFillRenderer.prototype.attachSegs = function (type, segs) {
         var timeGrid = this.timeGrid;
         var containerEls;
@@ -515,7 +503,6 @@ var AGENDA_STOCK_SUB_DURATIONS = [
 ];
 var TimeGrid = /** @class */ (function (_super) {
     __extends(TimeGrid, _super);
-
     function TimeGrid(el, renderProps) {
         var _this = _super.call(this, el) || this;
         _this.isSlatSizesDirty = false;
@@ -538,7 +525,6 @@ var TimeGrid = /** @class */ (function (_super) {
         _this.renderEventResize = memoizeRendering(_this._renderEventResize, _this._unrenderEventResize, [renderColumns]);
         return _this;
     }
-
     /* Options
     ------------------------------------------------------------------------------------------------------------------*/
     // Parses various options into properties of this object
@@ -1003,11 +989,9 @@ var TimeGrid = /** @class */ (function (_super) {
 
 var AllDaySplitter = /** @class */ (function (_super) {
     __extends(AllDaySplitter, _super);
-
     function AllDaySplitter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-
     AllDaySplitter.prototype.getKeyInfo = function () {
         return {
             allDay: {},
@@ -1041,7 +1025,6 @@ var WEEK_HEADER_FORMAT = createFormatter({week: 'short'});
 // Responsible for managing width/height.
 var AbstractTimeGridView = /** @class */ (function (_super) {
     __extends(AbstractTimeGridView, _super);
-
     function AbstractTimeGridView() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.splitter = new AllDaySplitter();
@@ -1097,7 +1080,6 @@ var AbstractTimeGridView = /** @class */ (function (_super) {
         };
         return _this;
     }
-
     AbstractTimeGridView.prototype.render = function (props, context) {
         _super.prototype.render.call(this, props, context);
         this.renderSkeleton(context);
@@ -1287,7 +1269,6 @@ AbstractTimeGridView.prototype.usesMinMaxTime = true; // indicates that minTime/
 
 var SimpleTimeGrid = /** @class */ (function (_super) {
     __extends(SimpleTimeGrid, _super);
-
     function SimpleTimeGrid(timeGrid) {
         var _this = _super.call(this, timeGrid.el) || this;
         _this.buildDayRanges = memoize(buildDayRanges);
@@ -1295,7 +1276,6 @@ var SimpleTimeGrid = /** @class */ (function (_super) {
         _this.timeGrid = timeGrid;
         return _this;
     }
-
     SimpleTimeGrid.prototype.firstContext = function (context) {
         context.calendar.registerInteractiveComponent(this, {
             el: this.timeGrid.el
@@ -1339,7 +1319,6 @@ var SimpleTimeGrid = /** @class */ (function (_super) {
     };
     return SimpleTimeGrid;
 }(DateComponent));
-
 function buildDayRanges(dayTable, dateProfile, dateEnv) {
     var ranges = [];
     for (var _i = 0, _a = dayTable.headerDates; _i < _a.length; _i++) {
@@ -1351,14 +1330,11 @@ function buildDayRanges(dayTable, dateProfile, dateEnv) {
     }
     return ranges;
 }
-
 var TimeGridSlicer = /** @class */ (function (_super) {
     __extends(TimeGridSlicer, _super);
-
     function TimeGridSlicer() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-
     TimeGridSlicer.prototype.sliceRange = function (range, dayRanges) {
         var segs = [];
         for (var col = 0; col < dayRanges.length; col++) {
@@ -1380,13 +1356,11 @@ var TimeGridSlicer = /** @class */ (function (_super) {
 
 var TimeGridView = /** @class */ (function (_super) {
     __extends(TimeGridView, _super);
-
     function TimeGridView() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.buildDayTable = memoize(buildDayTable);
         return _this;
     }
-
     TimeGridView.prototype.render = function (props, context) {
         _super.prototype.render.call(this, props, context); // for flags for updateSize. also _renderSkeleton/_unrenderSkeleton
         var _a = this.props, dateProfile = _a.dateProfile, dateProfileGenerator = _a.dateProfileGenerator;
@@ -1439,7 +1413,6 @@ var TimeGridView = /** @class */ (function (_super) {
     };
     return TimeGridView;
 }(AbstractTimeGridView));
-
 function buildDayTable(dateProfile, dateProfileGenerator) {
     var daySeries = new DaySeries(dateProfile.renderRange, dateProfileGenerator);
     return new DayTable(daySeries, false);

@@ -1,43 +1,43 @@
 (function () {
 
-    var db = {
+  var db = {
 
-        loadData: function (filter) {
-            return $.grep(this.clients, function (client) {
-                return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
-                    && (filter.Age === undefined || client.Age === filter.Age)
-                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
-                    && (!filter.Country || client.Country === filter.Country)
-                    && (filter.Married === undefined || client.Married === filter.Married);
-            });
-        },
+    loadData: function (filter) {
+      return $.grep(this.clients, function (client) {
+        return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
+          && (filter.Age === undefined || client.Age === filter.Age)
+          && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
+          && (!filter.Country || client.Country === filter.Country)
+          && (filter.Married === undefined || client.Married === filter.Married);
+      });
+    },
 
-        insertItem: function (insertingClient) {
-            this.clients.push(insertingClient);
-        },
+    insertItem: function (insertingClient) {
+      this.clients.push(insertingClient);
+    },
 
-        updateItem: function (updatingClient) {
-        },
+    updateItem: function (updatingClient) {
+    },
 
-        deleteItem: function (deletingClient) {
-            var clientIndex = $.inArray(deletingClient, this.clients);
-            this.clients.splice(clientIndex, 1);
-        }
+    deleteItem: function (deletingClient) {
+      var clientIndex = $.inArray(deletingClient, this.clients);
+      this.clients.splice(clientIndex, 1);
+    }
 
-    };
+  };
 
     window.db = db;
 
 
     db.countries = [
-        {Name: "", Id: 0},
-        {Name: "United States", Id: 1},
-        {Name: "Canada", Id: 2},
-        {Name: "United Kingdom", Id: 3},
-        {Name: "France", Id: 4},
-        {Name: "Brazil", Id: 5},
-        {Name: "China", Id: 6},
-        {Name: "Russia", Id: 7}
+      {Name: "", Id: 0},
+      {Name: "United States", Id: 1},
+      {Name: "Canada", Id: 2},
+      {Name: "United Kingdom", Id: 3},
+      {Name: "France", Id: 4},
+      {Name: "Brazil", Id: 5},
+      {Name: "China", Id: 6},
+      {Name: "Russia", Id: 7}
     ];
 
     db.clients = [
@@ -870,16 +870,16 @@
             "Name": "Sylvester Gaines",
             "RegisterDate": "2004-03-12T09:57:13-08:00"
         },
-        {
-            "Account": "874FCC49-9A61-71BC-2F4E-2CE88348AD7B",
-            "Name": "Abbot Mckay",
-            "RegisterDate": "2008-12-26T20:42:57-08:00"
-        },
-        {
-            "Account": "B8DA1912-20A0-FB6E-0031-5F88FD63EF90",
-            "Name": "Solomon Green",
-            "RegisterDate": "2013-09-04T01:44:47-07:00"
-        }
+      {
+        "Account": "874FCC49-9A61-71BC-2F4E-2CE88348AD7B",
+        "Name": "Abbot Mckay",
+        "RegisterDate": "2008-12-26T20:42:57-08:00"
+      },
+      {
+        "Account": "B8DA1912-20A0-FB6E-0031-5F88FD63EF90",
+        "Name": "Solomon Green",
+        "RegisterDate": "2013-09-04T01:44:47-07:00"
+      }
     ];
 
 }());

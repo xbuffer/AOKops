@@ -595,7 +595,6 @@ from https://feathericons.com/ and built with IcoMoon
     font-weight: normal;
     font-style: normal;
 }
-
 .fc-icon {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: "fcicons" !important;

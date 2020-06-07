@@ -1,5 +1,4 @@
 import FilterItem from '../FilterItem';
-
 /**
  * Simple method to check if two arrays of FilterItems
  * are sorted in the same manner or not.

@@ -26,7 +26,6 @@
         }
         return escapedTxt;
     }
-
     function alignDigits(buffer, digits, opts) {
         if (digits > 0) {
             var radixPosition = $.inArray(opts.radixPoint, buffer);
@@ -40,7 +39,6 @@
         }
         return buffer;
     }
-
     Inputmask.extendAliases({
         numeric: {
             mask: function (opts) {
@@ -169,7 +167,6 @@
                     }
                     return postMask;
                 }
-
                 var suffix = opts.suffix.split(""), prefix = opts.prefix.split("");
                 if (currentResult.pos === undefined && currentResult.caret !== undefined && currentResult.dopost !== true) return currentResult;
                 var caretPos = currentResult.caret !== undefined ? currentResult.caret : currentResult.pos;
@@ -298,7 +295,6 @@
                         opts.parseMinMaxOptions = "done";
                     }
                 }
-
                 if (e) {
                     switch (e.type) {
                         case "keydown":

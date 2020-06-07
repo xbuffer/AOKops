@@ -1,6 +1,5 @@
 import {Dictionary} from './types/interfaces/Dictionary';
 import FilterItem from './FilterItem';
-
 /**
  * A function to check that all elements of an array are found within another array.
  * @param {Array} arr1 is the array of strings to be checked
@@ -17,7 +16,6 @@ export {allStringsOfArray1InArray2};
  */
 declare const getNormalizedCssPropName: (cssProp: string) => string;
 export {getNormalizedCssPropName};
-
 /**
  * Set inline styles on an HTML node
  * @param {HTMLElement} node - HTML node
@@ -27,7 +25,6 @@ export {getNormalizedCssPropName};
 declare function setStylesOnHTMLNode(node: Element, styles: any): void;
 
 export {setStylesOnHTMLNode};
-
 /**
  * Returns an object with value/key pairs of all data
  * attributes on an HTML element, disregarding the
@@ -39,7 +36,6 @@ export {setStylesOnHTMLNode};
 declare function getDataAttributesOfHTMLNode(node: Element): Dictionary;
 
 export {getDataAttributesOfHTMLNode};
-
 /**
  * Check that a DOM element has a data-attribute present
  * @param {Object} node element

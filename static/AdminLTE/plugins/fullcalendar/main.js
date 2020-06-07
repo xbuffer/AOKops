@@ -22,7 +22,6 @@ Docs & License: https://fullcalendar.io/
         '<tr': 'tbody',
         '<td': 'tr'
     };
-
     function createElement(tagName, attrs, content) {
         var el = document.createElement(tagName);
         if (attrs) {
@@ -43,38 +42,32 @@ Docs & License: https://fullcalendar.io/
         }
         return el;
     }
-
     function htmlToElement(html) {
         html = html.trim();
         var container = document.createElement(computeContainerTag(html));
         container.innerHTML = html;
         return container.firstChild;
     }
-
     function htmlToElements(html) {
         return Array.prototype.slice.call(htmlToNodeList(html));
     }
-
     function htmlToNodeList(html) {
         html = html.trim();
         var container = document.createElement(computeContainerTag(html));
         container.innerHTML = html;
         return container.childNodes;
     }
-
     // assumes html already trimmed and tag names are lowercase
     function computeContainerTag(html) {
         return containerTagHash[html.substr(0, 3) // faster than using regex
             ] || 'div';
     }
-
     function appendToElement(el, content) {
         var childNodes = normalizeContent(content);
         for (var i = 0; i < childNodes.length; i++) {
             el.appendChild(childNodes[i]);
         }
     }
-
     function prependToElement(parent, content) {
         var newEls = normalizeContent(content);
         var afterEl = parent.firstChild || null; // if no firstChild, will append to end, but that's okay, b/c there were no children
@@ -82,7 +75,6 @@ Docs & License: https://fullcalendar.io/
             parent.insertBefore(newEls[i], afterEl);
         }
     }
-
     function insertAfterElement(refEl, content) {
         var newEls = normalizeContent(content);
         var afterEl = refEl.nextSibling || null;
@@ -90,7 +82,6 @@ Docs & License: https://fullcalendar.io/
             refEl.parentNode.insertBefore(newEls[i], afterEl);
         }
     }
-
     function normalizeContent(content) {
         var els;
         if (typeof content === 'string') {
@@ -102,13 +93,11 @@ Docs & License: https://fullcalendar.io/
         }
         return els;
     }
-
     function removeElement(el) {
         if (el.parentNode) {
             el.parentNode.removeChild(el);
         }
     }
-
     // Querying
     // ----------------------------------------------------------------------------------------------------------------
     // from https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
@@ -129,15 +118,12 @@ Docs & License: https://fullcalendar.io/
         } while (el !== null && el.nodeType === 1);
         return null;
     };
-
     function elementClosest(el, selector) {
         return closestMethod.call(el, selector);
     }
-
     function elementMatches(el, selector) {
         return matchesMethod.call(el, selector);
     }
-
     // accepts multiple subject els
     // returns a real array. good for methods like forEach
     function findElements(container, selector) {
@@ -151,7 +137,6 @@ Docs & License: https://fullcalendar.io/
         }
         return allMatches;
     }
-
     // accepts multiple subject els
     // only queries direct child elements
     function findChildren(parent, selector) {
@@ -168,7 +153,6 @@ Docs & License: https://fullcalendar.io/
         }
         return allMatches;
     }
-
     // Attributes
     // ----------------------------------------------------------------------------------------------------------------
     function forceClassName(el, className, bool) {
@@ -178,17 +162,14 @@ Docs & License: https://fullcalendar.io/
             el.classList.remove(className);
         }
     }
-
     // Style
     // ----------------------------------------------------------------------------------------------------------------
     var PIXEL_PROP_RE = /(top|left|right|bottom|width|height)$/i;
-
     function applyStyle(el, props) {
         for (var propName in props) {
             applyStyleProp(el, propName, props[propName]);
         }
     }
-
     function applyStyleProp(el, name, val) {
         if (val == null) {
             el.style[name] = '';
@@ -205,7 +186,6 @@ Docs & License: https://fullcalendar.io/
             point.top >= rect.top &&
             point.top < rect.bottom;
     }
-
     // Returns a new rectangle that is the intersection of the two rectangles. If they don't intersect, returns false
     function intersectRects(rect1, rect2) {
         var res = {
@@ -219,7 +199,6 @@ Docs & License: https://fullcalendar.io/
         }
         return false;
     }
-
     function translateRect(rect, deltaX, deltaY) {
         return {
             left: rect.left + deltaX,
@@ -228,7 +207,6 @@ Docs & License: https://fullcalendar.io/
             bottom: rect.bottom + deltaY
         };
     }
-
     // Returns a new point that will have been moved to reside within the given rectangle
     function constrainPoint(point, rect) {
         return {
@@ -236,7 +214,6 @@ Docs & License: https://fullcalendar.io/
             top: Math.min(Math.max(point.top, rect.top), rect.bottom)
         };
     }
-
     // Returns a point that is the center of the given rectangle
     function getRectCenter(rect) {
         return {
@@ -244,7 +221,6 @@ Docs & License: https://fullcalendar.io/
             top: (rect.top + rect.bottom) / 2
         };
     }
-
     // Subtracts point2's coordinates from point1's coordinates, returning a delta
     function diffPoints(point1, point2) {
         return {
@@ -255,14 +231,12 @@ Docs & License: https://fullcalendar.io/
 
     // Logic for determining if, when the element is right-to-left, the scrollbar appears on the left side
     var isRtlScrollbarOnLeft = null;
-
     function getIsRtlScrollbarOnLeft() {
         if (isRtlScrollbarOnLeft === null) {
             isRtlScrollbarOnLeft = computeIsRtlScrollbarOnLeft();
         }
         return isRtlScrollbarOnLeft;
     }
-
     function computeIsRtlScrollbarOnLeft() {
         var outerEl = createElement('div', {
             style: {
@@ -281,7 +255,6 @@ Docs & License: https://fullcalendar.io/
         removeElement(outerEl);
         return res;
     }
-
     // The scrollbar width computations in computeEdges are sometimes flawed when it comes to
     // retina displays, rounding, and IE11. Massage them into a usable value.
     function sanitizeScrollbarWidth(width) {
@@ -324,7 +297,6 @@ Docs & License: https://fullcalendar.io/
         }
         return res;
     }
-
     function computeInnerRect(el, goWithinPadding) {
         if (goWithinPadding === void 0) {
             goWithinPadding = false;
@@ -345,7 +317,6 @@ Docs & License: https://fullcalendar.io/
         }
         return res;
     }
-
     function computeRect(el) {
         var rect = el.getBoundingClientRect();
         return {
@@ -355,7 +326,6 @@ Docs & License: https://fullcalendar.io/
             bottom: rect.bottom + window.pageYOffset
         };
     }
-
     function computeViewportRect() {
         return {
             left: window.pageXOffset,
@@ -364,17 +334,14 @@ Docs & License: https://fullcalendar.io/
             bottom: window.pageYOffset + document.documentElement.clientHeight
         };
     }
-
     function computeHeightAndMargins(el) {
         return el.getBoundingClientRect().height + computeVMargins(el);
     }
-
     function computeVMargins(el) {
         var computed = window.getComputedStyle(el);
         return parseInt(computed.marginTop, 10) +
             parseInt(computed.marginBottom, 10);
     }
-
     // does not return window
     function getClippingParents(el) {
         var parents = [];
@@ -390,7 +357,6 @@ Docs & License: https://fullcalendar.io/
         }
         return parents;
     }
-
     function computeClippingRect(el) {
         return getClippingParents(el)
             .map(function (el) {
@@ -406,7 +372,6 @@ Docs & License: https://fullcalendar.io/
     function preventDefault(ev) {
         ev.preventDefault();
     }
-
     // Event Delegation
     // ----------------------------------------------------------------------------------------------------------------
     function listenBySelector(container, eventType, selector, handler) {
@@ -416,13 +381,11 @@ Docs & License: https://fullcalendar.io/
                 handler.call(matchedChild, ev, matchedChild);
             }
         }
-
         container.addEventListener(eventType, realHandler);
         return function () {
             container.removeEventListener(eventType, realHandler);
         };
     }
-
     function listenToHoverBySelector(container, selector, onMouseEnter, onMouseLeave) {
         var currentMatchedChild;
         return listenBySelector(container, 'mouseover', selector, function (ev, matchedChild) {
@@ -439,7 +402,6 @@ Docs & License: https://fullcalendar.io/
             }
         });
     }
-
     // Animation
     // ----------------------------------------------------------------------------------------------------------------
     var transitionEventNames = [
@@ -449,7 +411,6 @@ Docs & License: https://fullcalendar.io/
         'msTransitionEnd',
         'transitionend'
     ];
-
     // triggered only when the next single subsequent transition finishes
     function whenTransitionDone(el, callback) {
         var realCallback = function (ev) {
@@ -464,47 +425,38 @@ Docs & License: https://fullcalendar.io/
     }
 
     var DAY_IDS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-
     // Adding
     function addWeeks(m, n) {
         var a = dateToUtcArray(m);
         a[2] += n * 7;
         return arrayToUtcDate(a);
     }
-
     function addDays(m, n) {
         var a = dateToUtcArray(m);
         a[2] += n;
         return arrayToUtcDate(a);
     }
-
     function addMs(m, n) {
         var a = dateToUtcArray(m);
         a[6] += n;
         return arrayToUtcDate(a);
     }
-
     // Diffing (all return floats)
     function diffWeeks(m0, m1) {
         return diffDays(m0, m1) / 7;
     }
-
     function diffDays(m0, m1) {
         return (m1.valueOf() - m0.valueOf()) / (1000 * 60 * 60 * 24);
     }
-
     function diffHours(m0, m1) {
         return (m1.valueOf() - m0.valueOf()) / (1000 * 60 * 60);
     }
-
     function diffMinutes(m0, m1) {
         return (m1.valueOf() - m0.valueOf()) / (1000 * 60);
     }
-
     function diffSeconds(m0, m1) {
         return (m1.valueOf() - m0.valueOf()) / 1000;
     }
-
     function diffDayAndTime(m0, m1) {
         var m0day = startOfDay(m0);
         var m1day = startOfDay(m1);
@@ -515,7 +467,6 @@ Docs & License: https://fullcalendar.io/
             milliseconds: (m1.valueOf() - m1day.valueOf()) - (m0.valueOf() - m0day.valueOf())
         };
     }
-
     // Diffing Whole Units
     function diffWholeWeeks(m0, m1) {
         var d = diffWholeDays(m0, m1);
@@ -524,14 +475,12 @@ Docs & License: https://fullcalendar.io/
         }
         return null;
     }
-
     function diffWholeDays(m0, m1) {
         if (timeAsMs(m0) === timeAsMs(m1)) {
             return Math.round(diffDays(m0, m1));
         }
         return null;
     }
-
     // Start-Of
     function startOfDay(m) {
         return arrayToUtcDate([
@@ -540,7 +489,6 @@ Docs & License: https://fullcalendar.io/
             m.getUTCDate()
         ]);
     }
-
     function startOfHour(m) {
         return arrayToUtcDate([
             m.getUTCFullYear(),
@@ -549,7 +497,6 @@ Docs & License: https://fullcalendar.io/
             m.getUTCHours()
         ]);
     }
-
     function startOfMinute(m) {
         return arrayToUtcDate([
             m.getUTCFullYear(),
@@ -559,7 +506,6 @@ Docs & License: https://fullcalendar.io/
             m.getUTCMinutes()
         ]);
     }
-
     function startOfSecond(m) {
         return arrayToUtcDate([
             m.getUTCFullYear(),
@@ -570,7 +516,6 @@ Docs & License: https://fullcalendar.io/
             m.getUTCSeconds()
         ]);
     }
-
     // Week Computation
     function weekOfYear(marker, dow, doy) {
         var y = marker.getUTCFullYear();
@@ -584,14 +529,12 @@ Docs & License: https://fullcalendar.io/
         }
         return w;
     }
-
     function weekOfGivenYear(marker, year, dow, doy) {
         var firstWeekStart = arrayToUtcDate([year, 0, 1 + firstWeekOffset(year, dow, doy)]);
         var dayStart = startOfDay(marker);
         var days = Math.round(diffDays(firstWeekStart, dayStart));
         return Math.floor(days / 7) + 1; // zero-indexed
     }
-
     // start-of-first-week - start-of-year
     function firstWeekOffset(year, dow, doy) {
         // first-week day -- which january is always in the first week (4 for iso, 1 for other)
@@ -600,7 +543,6 @@ Docs & License: https://fullcalendar.io/
         var fwdlw = (7 + arrayToUtcDate([year, 0, fwd]).getUTCDay() - dow) % 7;
         return -fwdlw + fwd - 1;
     }
-
     // Array Conversion
     function dateToLocalArray(date) {
         return [
@@ -613,12 +555,10 @@ Docs & License: https://fullcalendar.io/
             date.getMilliseconds()
         ];
     }
-
     function arrayToLocalDate(a) {
         return new Date(a[0], a[1] || 0, a[2] == null ? 1 : a[2], // day of month
             a[3] || 0, a[4] || 0, a[5] || 0);
     }
-
     function dateToUtcArray(date) {
         return [
             date.getUTCFullYear(),
@@ -630,7 +570,6 @@ Docs & License: https://fullcalendar.io/
             date.getUTCMilliseconds()
         ];
     }
-
     function arrayToUtcDate(a) {
         // according to web standards (and Safari), a month index is required.
         // massage if only given a year.
@@ -639,12 +578,10 @@ Docs & License: https://fullcalendar.io/
         }
         return new Date(Date.UTC.apply(Date, a));
     }
-
     // Other Utils
     function isValidDate(m) {
         return !isNaN(m.valueOf());
     }
-
     function timeAsMs(m) {
         return m.getUTCHours() * 1000 * 60 * 60 +
             m.getUTCMinutes() * 1000 * 60 +
@@ -654,7 +591,6 @@ Docs & License: https://fullcalendar.io/
 
     var INTERNAL_UNITS = ['years', 'months', 'days', 'milliseconds'];
     var PARSE_RE = /^(-?)(?:(\d+)\.)?(\d+):(\d\d)(?::(\d\d)(?:\.(\d\d\d))?)?/;
-
     // Parsing and Creation
     function createDuration(input, unit) {
         var _a;
@@ -668,7 +604,6 @@ Docs & License: https://fullcalendar.io/
             return null;
         }
     }
-
     function parseString(s) {
         var m = PARSE_RE.exec(s);
         if (m) {
@@ -686,7 +621,6 @@ Docs & License: https://fullcalendar.io/
         }
         return null;
     }
-
     function normalizeObject(obj) {
         return {
             years: obj.years || obj.year || 0,
@@ -699,11 +633,9 @@ Docs & License: https://fullcalendar.io/
                 (obj.milliseconds || obj.millisecond || obj.ms || 0) // ms
         };
     }
-
     function getWeeksFromInput(obj) {
         return obj.weeks || obj.week || 0;
     }
-
     // Equality
     function durationsEqual(d0, d1) {
         return d0.years === d1.years &&
@@ -711,11 +643,9 @@ Docs & License: https://fullcalendar.io/
             d0.days === d1.days &&
             d0.milliseconds === d1.milliseconds;
     }
-
     function isSingleDay(dur) {
         return dur.years === 0 && dur.months === 0 && dur.days === 1 && dur.milliseconds === 0;
     }
-
     // Simple Math
     function addDurations(d0, d1) {
         return {
@@ -725,7 +655,6 @@ Docs & License: https://fullcalendar.io/
             milliseconds: d0.milliseconds + d1.milliseconds
         };
     }
-
     function subtractDurations(d1, d0) {
         return {
             years: d1.years - d0.years,
@@ -734,7 +663,6 @@ Docs & License: https://fullcalendar.io/
             milliseconds: d1.milliseconds - d0.milliseconds
         };
     }
-
     function multiplyDuration(d, n) {
         return {
             years: d.years * n,
@@ -743,36 +671,29 @@ Docs & License: https://fullcalendar.io/
             milliseconds: d.milliseconds * n
         };
     }
-
     // Conversions
     // "Rough" because they are based on average-case Gregorian months/years
     function asRoughYears(dur) {
         return asRoughDays(dur) / 365;
     }
-
     function asRoughMonths(dur) {
         return asRoughDays(dur) / 30;
     }
-
     function asRoughDays(dur) {
         return asRoughMs(dur) / 864e5;
     }
-
     function asRoughMinutes(dur) {
         return asRoughMs(dur) / (1000 * 60);
     }
-
     function asRoughSeconds(dur) {
         return asRoughMs(dur) / 1000;
     }
-
     function asRoughMs(dur) {
         return dur.years * (365 * 864e5) +
             dur.months * (30 * 864e5) +
             dur.days * 864e5 +
             dur.milliseconds;
     }
-
     // Advanced Math
     function wholeDivideDurations(numerator, denominator) {
         var res = null;
@@ -791,7 +712,6 @@ Docs & License: https://fullcalendar.io/
         }
         return res;
     }
-
     function greatestDurationDenominator(dur, dontReturnWeeks) {
         var ms = dur.milliseconds;
         if (ms) {
@@ -841,7 +761,6 @@ Docs & License: https://fullcalendar.io/
             });
         }
     }
-
     // Undoes compensateScroll and restores all borders/margins
     function uncompensateScroll(rowEl) {
         applyStyle(rowEl, {
@@ -851,17 +770,14 @@ Docs & License: https://fullcalendar.io/
             borderRightWidth: ''
         });
     }
-
     // Make the mouse cursor express that an event is not allowed in the current area
     function disableCursor() {
         document.body.classList.add('fc-not-allowed');
     }
-
     // Returns the mouse cursor to its original look
     function enableCursor() {
         document.body.classList.remove('fc-not-allowed');
     }
-
     // Given a total available height to fill, have `els` (essentially child rows) expand to accomodate.
     // By default, all elements that are shorter than the recommended height are expanded uniformly, not considering
     // any other els that are already too tall. if `shouldRedistribute` is on, it considers these tall rows and
@@ -908,14 +824,12 @@ Docs & License: https://fullcalendar.io/
             }
         });
     }
-
     // Undoes distrubuteHeight, restoring all els to their natural height
     function undistributeHeight(els) {
         els.forEach(function (el) {
             el.style.height = '';
         });
     }
-
     // Given `els`, a set of <td> cells, find the cell with the largest natural width and set the widths of all the
     // cells to be that width.
     // PREREQUISITE: if you want a cell to take up width, it needs to have a single inner element w/ display:inline
@@ -936,7 +850,6 @@ Docs & License: https://fullcalendar.io/
         });
         return maxInnerWidth;
     }
-
     // Given one element that resides inside another,
     // Subtracts the height of the inner element from the outer element.
     function subtractInnerElHeight(outerEl, innerEl) {
@@ -956,29 +869,24 @@ Docs & License: https://fullcalendar.io/
         applyStyle(innerEl, resetStyleProps);
         return diff;
     }
-
     /* Selection
     ----------------------------------------------------------------------------------------------------------------------*/
     function preventSelection(el) {
         el.classList.add('fc-unselectable');
         el.addEventListener('selectstart', preventDefault);
     }
-
     function allowSelection(el) {
         el.classList.remove('fc-unselectable');
         el.removeEventListener('selectstart', preventDefault);
     }
-
     /* Context Menu
     ----------------------------------------------------------------------------------------------------------------------*/
     function preventContextMenu(el) {
         el.addEventListener('contextmenu', preventDefault);
     }
-
     function allowContextMenu(el) {
         el.removeEventListener('contextmenu', preventDefault);
     }
-
     /* Object Ordering by Field
     ----------------------------------------------------------------------------------------------------------------------*/
     function parseFieldSpecs(input) {
@@ -1005,7 +913,6 @@ Docs & License: https://fullcalendar.io/
         }
         return specs;
     }
-
     function compareByFieldSpecs(obj0, obj1, fieldSpecs) {
         var i;
         var cmp;
@@ -1017,7 +924,6 @@ Docs & License: https://fullcalendar.io/
         }
         return 0;
     }
-
     function compareByFieldSpec(obj0, obj1, fieldSpec) {
         if (fieldSpec.func) {
             return fieldSpec.func(obj0, obj1);
@@ -1025,7 +931,6 @@ Docs & License: https://fullcalendar.io/
         return flexibleCompare(obj0[fieldSpec.field], obj1[fieldSpec.field])
             * (fieldSpec.order || 1);
     }
-
     function flexibleCompare(a, b) {
         if (!a && !b) {
             return 0;
@@ -1041,28 +946,23 @@ Docs & License: https://fullcalendar.io/
         }
         return a - b;
     }
-
     /* String Utilities
     ----------------------------------------------------------------------------------------------------------------------*/
     function capitaliseFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
-
     function padStart(val, len) {
         var s = String(val);
         return '000'.substr(0, len - s.length) + s;
     }
-
     /* Number Utilities
     ----------------------------------------------------------------------------------------------------------------------*/
     function compareNumbers(a, b) {
         return a - b;
     }
-
     function isInt(n) {
         return n % 1 === 0;
     }
-
     /* Weird Utilities
     ----------------------------------------------------------------------------------------------------------------------*/
     function applyAll(functions, thisObj, args) {
@@ -1078,7 +978,6 @@ Docs & License: https://fullcalendar.io/
             return ret;
         }
     }
-
     function firstDefined() {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -1090,7 +989,6 @@ Docs & License: https://fullcalendar.io/
             }
         }
     }
-
     // Returns a function, that, as long as it continues to be invoked, will not
     // be triggered. The function will be called after it stops being called for
     // N milliseconds. If `immediate` is passed, trigger the function on the
@@ -1122,7 +1020,6 @@ Docs & License: https://fullcalendar.io/
             return result;
         };
     }
-
     // Number and Boolean are only types that defaults or not computed for
     // TODO: write more comments
     function refineProps(rawProps, processors, defaults, leftoverProps) {
@@ -1164,7 +1061,6 @@ Docs & License: https://fullcalendar.io/
         }
         return refined;
     }
-
     /* Date stuff that doesn't belong in datelib core
     ----------------------------------------------------------------------------------------------------------------------*/
     // given a timed range, computes an all-day range that has the same exact duration,
@@ -1175,7 +1071,6 @@ Docs & License: https://fullcalendar.io/
         var end = addDays(start, dayCnt);
         return {start: start, end: end};
     }
-
     // given a timed range, computes an all-day range based on how for the end date bleeds into the next day
     // TODO: give nextDayThreshold a default arg
     function computeVisibleDayRange(timedRange, nextDayThreshold) {
@@ -1203,13 +1098,11 @@ Docs & License: https://fullcalendar.io/
         }
         return {start: startDay, end: endDay};
     }
-
     // spans from one day into another?
     function isMultiDayRange(range) {
         var visibleRange = computeVisibleDayRange(range);
         return diffDays(visibleRange.start, visibleRange.end) > 1;
     }
-
     function diffDates(date0, date1, dateEnv, largeUnit) {
         if (largeUnit === 'year') {
             return createDuration(dateEnv.diffWholeYears(date0, date1), 'year');
@@ -1253,7 +1146,6 @@ Docs & License: https://fullcalendar.io/
         function __() {
             this.constructor = d;
         }
-
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
@@ -1295,7 +1187,6 @@ Docs & License: https://fullcalendar.io/
         }
         return null;
     }
-
     /*
     Event MUST have a recurringDef
     */
@@ -1354,7 +1245,6 @@ Docs & License: https://fullcalendar.io/
         }
         return dest;
     }
-
     function filterHash(hash, func) {
         var filtered = {};
         for (var key in hash) {
@@ -1364,7 +1254,6 @@ Docs & License: https://fullcalendar.io/
         }
         return filtered;
     }
-
     function mapHash(hash, func) {
         var newHash = {};
         for (var key in hash) {
@@ -1372,7 +1261,6 @@ Docs & License: https://fullcalendar.io/
         }
         return newHash;
     }
-
     function arrayToHash(a) {
         var hash = {};
         for (var _i = 0, a_1 = a; _i < a_1.length; _i++) {
@@ -1381,7 +1269,6 @@ Docs & License: https://fullcalendar.io/
         }
         return hash;
     }
-
     function hashValuesToArray(obj) {
         var a = [];
         for (var key in obj) {
@@ -1389,7 +1276,6 @@ Docs & License: https://fullcalendar.io/
         }
         return a;
     }
-
     function isPropsEqual(obj0, obj1) {
         for (var key in obj0) {
             if (hasOwnProperty.call(obj0, key)) {
@@ -1419,7 +1305,6 @@ Docs & License: https://fullcalendar.io/
         }
         return eventStore;
     }
-
     function eventTupleToStore(tuple, eventStore) {
         if (eventStore === void 0) {
             eventStore = createEmptyEventStore();
@@ -1430,7 +1315,6 @@ Docs & License: https://fullcalendar.io/
         }
         return eventStore;
     }
-
     function expandRecurring(eventStore, framingRange, calendar) {
         var dateEnv = calendar.dateEnv;
         var defs = eventStore.defs, instances = eventStore.instances;
@@ -1460,7 +1344,6 @@ Docs & License: https://fullcalendar.io/
         }
         return {defs: defs, instances: instances};
     }
-
     // retrieves events that have the same groupId as the instance specified by `instanceId`
     // or they are the same as the instance.
     // why might instanceId not be in the store? an event from another calendar?
@@ -1480,11 +1363,9 @@ Docs & License: https://fullcalendar.io/
         }
         return createEmptyEventStore();
     }
-
     function isEventDefsGrouped(def0, def1) {
         return Boolean(def0.groupId && def0.groupId === def1.groupId);
     }
-
     function transformRawEvents(rawEvents, eventSource, calendar) {
         var calEachTransform = calendar.opt('eventDataTransform');
         var sourceEachTransform = eventSource ? eventSource.eventDataTransform : null;
@@ -1496,7 +1377,6 @@ Docs & License: https://fullcalendar.io/
         }
         return rawEvents;
     }
-
     function transformEachRawEvent(rawEvents, func) {
         var refinedEvents;
         if (!func) {
@@ -1515,18 +1395,15 @@ Docs & License: https://fullcalendar.io/
         }
         return refinedEvents;
     }
-
     function createEmptyEventStore() {
         return {defs: {}, instances: {}};
     }
-
     function mergeEventStores(store0, store1) {
         return {
             defs: __assign({}, store0.defs, store1.defs),
             instances: __assign({}, store0.instances, store1.instances)
         };
     }
-
     function filterEventStoreDefs(eventStore, filterFunc) {
         var defs = filterHash(eventStore.defs, filterFunc);
         var instances = filterHash(eventStore.instances, function (instance) {
@@ -1552,7 +1429,6 @@ Docs & License: https://fullcalendar.io/
         }
         return {start: start, end: end};
     }
-
     // SIDE-EFFECT: will mutate ranges.
     // Will return a new array result.
     function invertRanges(ranges, constraintRange) {
@@ -1578,11 +1454,9 @@ Docs & License: https://fullcalendar.io/
         }
         return invertedRanges;
     }
-
     function compareRanges(range0, range1) {
         return range0.start.valueOf() - range1.start.valueOf(); // earlier ranges go first
     }
-
     function intersectRanges(range0, range1) {
         var start = range0.start;
         var end = range0.end;
@@ -1606,27 +1480,22 @@ Docs & License: https://fullcalendar.io/
         }
         return newRange;
     }
-
     function rangesEqual(range0, range1) {
         return (range0.start === null ? null : range0.start.valueOf()) === (range1.start === null ? null : range1.start.valueOf()) &&
             (range0.end === null ? null : range0.end.valueOf()) === (range1.end === null ? null : range1.end.valueOf());
     }
-
     function rangesIntersect(range0, range1) {
         return (range0.end === null || range1.start === null || range0.end > range1.start) &&
             (range0.start === null || range1.end === null || range0.start < range1.end);
     }
-
     function rangeContainsRange(outerRange, innerRange) {
         return (outerRange.start === null || (innerRange.start !== null && innerRange.start >= outerRange.start)) &&
             (outerRange.end === null || (innerRange.end !== null && innerRange.end <= outerRange.end));
     }
-
     function rangeContainsMarker(range, date) {
         return (range.start === null || date >= range.start) &&
             (range.end === null || date < range.end);
     }
-
     // If the given date is not within the given range, move it inside.
     // (If it's past the end, make it one millisecond before the end).
     function constrainMarkerToRange(date, range) {
@@ -1652,7 +1521,6 @@ Docs & License: https://fullcalendar.io/
         }
         return removeCnt;
     }
-
     function isArraysEqual(a0, a1) {
         var len = a0.length;
         var i;
@@ -1678,7 +1546,6 @@ Docs & License: https://fullcalendar.io/
             return res;
         };
     }
-
     /*
     always executes the workerFunc, but if the result is equal to the previous result,
     return the previous result instead.
@@ -1738,7 +1605,6 @@ Docs & License: https://fullcalendar.io/
             this.severity = severity;
             this.buildFormattingFunc = memoize(buildFormattingFunc);
         }
-
         NativeFormatter.prototype.format = function (date, context) {
             return this.buildFormattingFunc(this.standardDateProps, this.extendedSettings, context)(date);
         };
@@ -1787,7 +1653,6 @@ Docs & License: https://fullcalendar.io/
         };
         return NativeFormatter;
     }());
-
     function buildFormattingFunc(standardDateProps, extendedSettings, context) {
         var standardDatePropCnt = Object.keys(standardDateProps).length;
         if (standardDatePropCnt === 1 && standardDateProps.timeZoneName === 'short') {
@@ -1802,7 +1667,6 @@ Docs & License: https://fullcalendar.io/
         }
         return buildNativeFormattingFunc(standardDateProps, extendedSettings, context);
     }
-
     function buildNativeFormattingFunc(standardDateProps, extendedSettings, context) {
         standardDateProps = __assign({}, standardDateProps); // copy
         extendedSettings = __assign({}, extendedSettings); // copy
@@ -1827,7 +1691,6 @@ Docs & License: https://fullcalendar.io/
             return postProcess(s, date, standardDateProps, extendedSettings, context);
         };
     }
-
     function sanitizeSettings(standardDateProps, extendedSettings) {
         // deal with a browser inconsistency where formatting the timezone
         // requires that the hour/minute be present.
@@ -1848,7 +1711,6 @@ Docs & License: https://fullcalendar.io/
             delete extendedSettings.omitZeroMinute;
         }
     }
-
     function postProcess(s, date, standardDateProps, extendedSettings, context) {
         s = s.replace(LTR_RE, ''); // remove left-to-right control chars. do first. good for other regexes
         if (standardDateProps.timeZoneName === 'short') {
@@ -1883,7 +1745,6 @@ Docs & License: https://fullcalendar.io/
         s = s.trim();
         return s;
     }
-
     function injectTzoStr(s, tzoStr) {
         var replaced = false;
         s = s.replace(UTC_RE, function () {
@@ -1896,7 +1757,6 @@ Docs & License: https://fullcalendar.io/
         }
         return s;
     }
-
     function formatWeekNumber(num, weekLabel, locale, display) {
         var parts = [];
         if (display === 'narrow') {
@@ -1911,7 +1771,6 @@ Docs & License: https://fullcalendar.io/
         }
         return parts.join('');
     }
-
     // Range Formatting Utils
     // 0 = exactly the same
     // 1 = different by time
@@ -1931,7 +1790,6 @@ Docs & License: https://fullcalendar.io/
         }
         return 0;
     }
-
     function computePartialFormattingOptions(options, biggestUnit) {
         var partialOptions = {};
         for (var name_2 in options) {
@@ -1942,7 +1800,6 @@ Docs & License: https://fullcalendar.io/
         }
         return partialOptions;
     }
-
     function findCommonInsertion(full0, partial0, full1, partial1) {
         var i0 = 0;
         while (i0 < full0.length) {
@@ -1985,7 +1842,6 @@ Docs & License: https://fullcalendar.io/
             this.cmdStr = cmdStr;
             this.separator = separator;
         }
-
         CmdFormatter.prototype.format = function (date, context) {
             return context.cmdFormatter(this.cmdStr, createVerboseFormattingArg(date, null, context, this.separator));
         };
@@ -1999,7 +1855,6 @@ Docs & License: https://fullcalendar.io/
         function FuncFormatter(func) {
             this.func = func;
         }
-
         FuncFormatter.prototype.format = function (date, context) {
             return this.func(createVerboseFormattingArg(date, null, context));
         };
@@ -2022,7 +1877,6 @@ Docs & License: https://fullcalendar.io/
             return new FuncFormatter(input);
         }
     }
-
     // String Utils
     // timeZoneOffset is in minutes
     function buildIsoString(marker, timeZoneOffset, stripZeroTime) {
@@ -2044,13 +1898,11 @@ Docs & License: https://fullcalendar.io/
         }
         return s;
     }
-
     function formatIsoTimeString(marker) {
         return padStart(marker.getUTCHours(), 2) + ':' +
             padStart(marker.getUTCMinutes(), 2) + ':' +
             padStart(marker.getUTCSeconds(), 2);
     }
-
     function formatTimeZoneOffset(minutes, doIso) {
         if (doIso === void 0) {
             doIso = false;
@@ -2065,7 +1917,6 @@ Docs & License: https://fullcalendar.io/
             return 'GMT' + sign + hours + (mins ? ':' + padStart(mins, 2) : '');
         }
     }
-
     // Arg Utils
     function createVerboseFormattingArg(start, end, context, separator) {
         var startInfo = expandZonedMarker(start, context.calendarSystem);
@@ -2079,7 +1930,6 @@ Docs & License: https://fullcalendar.io/
             separator: separator
         };
     }
-
     function expandZonedMarker(dateInfo, calendarSystem) {
         var a = calendarSystem.markerToArray(dateInfo.marker);
         return {
@@ -2101,7 +1951,6 @@ Docs & License: https://fullcalendar.io/
             this.calendar = calendar;
             this.internalEventSource = internalEventSource;
         }
-
         EventSourceApi.prototype.remove = function () {
             this.calendar.dispatch({
                 type: 'REMOVE_EVENT_SOURCE',
@@ -2138,7 +1987,6 @@ Docs & License: https://fullcalendar.io/
             this._def = def;
             this._instance = instance || null;
         }
-
         /*
         TODO: make event struct more responsible for this
         */
@@ -2550,11 +2398,9 @@ Docs & License: https://fullcalendar.io/
         }
         return {bg: bgRanges, fg: fgRanges};
     }
-
     function hasBgRendering(def) {
         return def.rendering === 'background' || def.rendering === 'inverse-background';
     }
-
     function filterSegsViaEls(context, segs, isMirror) {
         var calendar = context.calendar, view = context.view;
         if (calendar.hasPublicHandlers('eventRender')) {
@@ -2584,22 +2430,18 @@ Docs & License: https://fullcalendar.io/
         }
         return segs;
     }
-
     function setElSeg(el, seg) {
         el.fcSeg = seg;
     }
-
     function getElSeg(el) {
         return el.fcSeg || null;
     }
-
     // event ui computation
     function compileEventUis(eventDefs, eventUiBases) {
         return mapHash(eventDefs, function (eventDef) {
             return compileEventUi(eventDef, eventUiBases);
         });
     }
-
     function compileEventUi(eventDef, eventUiBases) {
         var uis = [];
         if (eventUiBases['']) {
@@ -2611,7 +2453,6 @@ Docs & License: https://fullcalendar.io/
         uis.push(eventDef.ui);
         return combineEventUis(uis);
     }
-
     // triggers
     function triggerRenderedSegs(context, segs, isMirrors) {
         var calendar = context.calendar, view = context.view;
@@ -2634,7 +2475,6 @@ Docs & License: https://fullcalendar.io/
             calendar.afterSizingTriggers._eventsPositioned = [null]; // fire once
         }
     }
-
     function triggerWillRemoveSegs(context, segs, isMirrors) {
         var calendar = context.calendar, view = context.view;
         for (var _i = 0, segs_3 = segs; _i < segs_3.length; _i++) {
@@ -2655,7 +2495,6 @@ Docs & License: https://fullcalendar.io/
             }
         }
     }
-
     // is-interactable
     function computeEventDraggable(context, eventDef, eventUi) {
         var calendar = context.calendar, view = context.view;
@@ -2667,11 +2506,9 @@ Docs & License: https://fullcalendar.io/
         }
         return val;
     }
-
     function computeEventStartResizable(context, eventDef, eventUi) {
         return eventUi.durationEditable && context.options.eventResizableFromStart;
     }
-
     function computeEventEndResizable(context, eventDef, eventUi) {
         return eventUi.durationEditable;
     }
@@ -2691,7 +2528,6 @@ Docs & License: https://fullcalendar.io/
         }
         return dest;
     }
-
     function applyMutationToEventDef(eventDef, eventConfig, mutation, appliers, calendar) {
         var standardProps = mutation.standardProps || {};
         // if hasEnd has not been specified, guess a good value based on deltas.
@@ -2809,7 +2645,6 @@ Docs & License: https://fullcalendar.io/
                 return eventStore;
         }
     }
-
     function receiveRawEvents(eventStore, eventSource, fetchId, fetchRange, rawEvents, calendar) {
         if (eventSource && // not already removed
             fetchId === eventSource.latestFetchId // TODO: wish this logic was always in event-sources
@@ -2822,14 +2657,12 @@ Docs & License: https://fullcalendar.io/
         }
         return eventStore;
     }
-
     function addEvent(eventStore, subset, expandRange, calendar) {
         if (expandRange) {
             subset = expandRecurring(subset, expandRange, calendar);
         }
         return mergeEventStores(eventStore, subset);
     }
-
     function rezoneDates(eventStore, oldDateEnv, newDateEnv) {
         var defs = eventStore.defs;
         var instances = mapHash(eventStore.instances, function (instance) {
@@ -2849,7 +2682,6 @@ Docs & License: https://fullcalendar.io/
         });
         return {defs: defs, instances: instances};
     }
-
     function applyMutationToRelated(eventStore, instanceId, mutation, fromApi, calendar) {
         var relevant = getRelevantEvents(eventStore, instanceId);
         var eventConfigBase = fromApi ?
@@ -2870,13 +2702,11 @@ Docs & License: https://fullcalendar.io/
         relevant = applyMutationToEventStore(relevant, eventConfigBase, mutation, calendar);
         return mergeEventStores(eventStore, relevant);
     }
-
     function excludeEventsBySourceId(eventStore, sourceId) {
         return filterEventStoreDefs(eventStore, function (eventDef) {
             return eventDef.sourceId !== sourceId;
         });
     }
-
     // QUESTION: why not just return instances? do a general object-property-exclusion util
     function excludeInstances(eventStore, removals) {
         return {
@@ -2892,11 +2722,9 @@ Docs & License: https://fullcalendar.io/
     function isInteractionValid(interaction, calendar) {
         return isNewPropsValid({eventDrag: interaction}, calendar); // HACK: the eventDrag props is used for ALL interactions
     }
-
     function isDateSelectionValid(dateSelection, calendar) {
         return isNewPropsValid({dateSelection: dateSelection}, calendar);
     }
-
     function isNewPropsValid(newProps, calendar) {
         var view = calendar.view;
         var props = __assign({
@@ -2910,7 +2738,6 @@ Docs & License: https://fullcalendar.io/
         }, newProps);
         return (calendar.pluginSystem.hooks.isPropsValid || isPropsValid)(props, calendar);
     }
-
     function isPropsValid(state, calendar, dateSpanMeta, filterConfig) {
         if (dateSpanMeta === void 0) {
             dateSpanMeta = {};
@@ -2923,7 +2750,6 @@ Docs & License: https://fullcalendar.io/
         }
         return true;
     }
-
     // Moving Event Validation
     // ------------------------------------------------------------------------------------------------------------------------
     function isInteractionPropsValid(state, calendar, dateSpanMeta, filterConfig) {
@@ -2998,7 +2824,6 @@ Docs & License: https://fullcalendar.io/
         }
         return true;
     }
-
     // Date Selection Validation
     // ------------------------------------------------------------------------------------------------------------------------
     function isDateSelectionPropsValid(state, calendar, dateSpanMeta, filterConfig) {
@@ -3042,7 +2867,6 @@ Docs & License: https://fullcalendar.io/
         }
         return true;
     }
-
     // Constraint Utils
     // ------------------------------------------------------------------------------------------------------------------------
     function allConstraintsPass(constraints, subjectRange, otherEventStore, businessHoursUnexpanded, calendar) {
@@ -3054,7 +2878,6 @@ Docs & License: https://fullcalendar.io/
         }
         return true;
     }
-
     function constraintToRanges(constraint, subjectRange, // for expanding a recurring constraint, or expanding business hours
                                 otherEventStore, // for if constraint is an even group ID
                                 businessHoursUnexpanded, // for if constraint is 'businessHours'
@@ -3071,7 +2894,6 @@ Docs & License: https://fullcalendar.io/
         }
         return []; // if it's false
     }
-
     // TODO: move to event-store file?
     function eventStoreToRanges(eventStore) {
         var instances = eventStore.instances;
@@ -3081,7 +2903,6 @@ Docs & License: https://fullcalendar.io/
         }
         return ranges;
     }
-
     // TODO: move to geom file?
     function anyRangesContainRange(outerRanges, innerRange) {
         for (var _i = 0, outerRanges_1 = outerRanges; _i < outerRanges_1.length; _i++) {
@@ -3092,7 +2913,6 @@ Docs & License: https://fullcalendar.io/
         }
         return false;
     }
-
     // Parsing
     // ------------------------------------------------------------------------------------------------------------------------
     function normalizeConstraint(input, calendar) {
@@ -3115,7 +2935,6 @@ Docs & License: https://fullcalendar.io/
             .replace(/"/g, '&quot;')
             .replace(/\n/g, '<br />');
     }
-
     // Given a hash of CSS properties, returns a string of CSS.
     // Uses property names as-is (no camel-case conversion). Will not make statements for null/undefined values.
     function cssToStr(cssProps) {
@@ -3128,7 +2947,6 @@ Docs & License: https://fullcalendar.io/
         }
         return statements.join(';');
     }
-
     // Given an object hash of HTML attribute names to values,
     // generates a string that can be injected between < > in HTML
     function attrsToStr(attrs) {
@@ -3141,7 +2959,6 @@ Docs & License: https://fullcalendar.io/
         }
         return parts.join(' ');
     }
-
     function parseClassName(raw) {
         if (Array.isArray(raw)) {
             return raw;
@@ -3166,7 +2983,6 @@ Docs & License: https://fullcalendar.io/
         borderColor: String,
         textColor: String
     };
-
     function processUnscopedUiProps(rawProps, calendar, leftovers) {
         var props = refineProps(rawProps, UNSCOPED_EVENT_UI_PROPS, {}, leftovers);
         var constraint = normalizeConstraint(props.constraint, calendar);
@@ -3182,7 +2998,6 @@ Docs & License: https://fullcalendar.io/
             classNames: props.classNames.concat(props.className)
         };
     }
-
     function processScopedUiProps(prefix, rawScoped, calendar, leftovers) {
         var rawUnscoped = {};
         var wasFound = {};
@@ -3203,7 +3018,6 @@ Docs & License: https://fullcalendar.io/
         }
         return processUnscopedUiProps(rawUnscoped, calendar);
     }
-
     var EMPTY_EVENT_UI = {
         startEditable: null,
         durationEditable: null,
@@ -3215,12 +3029,10 @@ Docs & License: https://fullcalendar.io/
         textColor: '',
         classNames: []
     };
-
     // prevent against problems with <2 args!
     function combineEventUis(uis) {
         return uis.reduce(combineTwoEventUis, EMPTY_EVENT_UI);
     }
-
     function combineTwoEventUis(item0, item1) {
         return {
             startEditable: item1.startEditable != null ? item1.startEditable : item0.startEditable,
@@ -3250,7 +3062,6 @@ Docs & License: https://fullcalendar.io/
         allDay: null
     };
     var uid = 0;
-
     function parseEvent(raw, sourceId, calendar, allowOpenRange) {
         var allDayDefault = computeIsAllDayDefault(sourceId, calendar);
         var leftovers0 = {};
@@ -3276,7 +3087,6 @@ Docs & License: https://fullcalendar.io/
         }
         return null;
     }
-
     /*
     Will NOT populate extendedProps with the leftover properties.
     Will NOT populate date-related props.
@@ -3301,7 +3111,6 @@ Docs & License: https://fullcalendar.io/
         Object.freeze(def.extendedProps);
         return def;
     }
-
     function createEventInstance(defId, range, forcedStartTzo, forcedEndTzo) {
         return {
             instanceId: String(uid++),
@@ -3311,7 +3120,6 @@ Docs & License: https://fullcalendar.io/
             forcedEndTzo: forcedEndTzo == null ? null : forcedEndTzo
         };
     }
-
     function parseSingle(raw, allDayDefault, calendar, leftovers, allowOpenRange) {
         var props = pluckDateProps(raw, leftovers);
         var allDay = props.allDay;
@@ -3366,14 +3174,12 @@ Docs & License: https://fullcalendar.io/
             forcedEndTzo: endMeta ? endMeta.forcedTzo : null
         };
     }
-
     function pluckDateProps(raw, leftovers) {
         var props = refineProps(raw, DATE_PROPS, {}, leftovers);
         props.start = (props.start !== null) ? props.start : props.date;
         delete props.date;
         return props;
     }
-
     function pluckNonDateProps(raw, calendar, leftovers) {
         var preLeftovers = {};
         var props = refineProps(raw, NON_DATE_PROPS, {}, preLeftovers);
@@ -3383,7 +3189,6 @@ Docs & License: https://fullcalendar.io/
         props.ui = ui;
         return props;
     }
-
     function computeIsAllDayDefault(sourceId, calendar) {
         var res = null;
         if (sourceId) {
@@ -3404,14 +3209,12 @@ Docs & License: https://fullcalendar.io/
         classNames: 'fc-nonbusiness',
         groupId: '_businessHours' // so multiple defs get grouped
     };
-
     /*
     TODO: pass around as EventDefHash!!!
     */
     function parseBusinessHours(input, calendar) {
         return parseEvents(refineInputs(input), '', calendar);
     }
-
     function refineInputs(input) {
         var rawDefs;
         if (input === true) {
@@ -3439,7 +3242,6 @@ Docs & License: https://fullcalendar.io/
         var dependents = [];
         var thisContext;
         var prevArgs;
-
         function unrender() {
             if (prevArgs) {
                 for (var _i = 0, dependents_1 = dependents; _i < dependents_1.length; _i++) {
@@ -3452,7 +3254,6 @@ Docs & License: https://fullcalendar.io/
                 prevArgs = null;
             }
         }
-
         function res() {
             if (!prevArgs || !isArraysEqual(prevArgs, arguments)) {
                 unrender();
@@ -3461,7 +3262,6 @@ Docs & License: https://fullcalendar.io/
                 renderFunc.apply(this, arguments);
             }
         }
-
         res.dependents = dependents;
         res.unrender = unrender;
         for (var _i = 0, dependencies_1 = dependencies; _i < dependencies_1.length; _i++) {
@@ -3482,7 +3282,6 @@ Docs & License: https://fullcalendar.io/
             this.splitEventResize = memoize(this._splitInteraction);
             this.eventUiBuilders = {}; // TODO: typescript protection
         }
-
         Splitter.prototype.splitProps = function (props) {
             var _this = this;
             var keyInfos = this.getKeyInfo(props);
@@ -3596,7 +3395,6 @@ Docs & License: https://fullcalendar.io/
         };
         return Splitter;
     }());
-
     function buildEventUiForKey(allUi, eventUiForKey, individualUi) {
         var baseParts = [];
         if (allUi) {
@@ -3653,11 +3451,9 @@ Docs & License: https://fullcalendar.io/
                 '</span>';
         }
     }
-
     function getAllDayHtml(allOptions) {
         return allOptions.allDayHtml || htmlEscape(allOptions.allDayText);
     }
-
     // Computes HTML classNames for a single-day element
     function getDayClasses(date, dateProfile, context, noThemeHighlight) {
         var calendar = context.calendar, options = context.options, theme = context.theme, dateEnv = context.dateEnv;
@@ -3719,7 +3515,6 @@ Docs & License: https://fullcalendar.io/
     var Mixin = /** @class */ (function () {
         function Mixin() {
         }
-
         // mix into a CLASS
         Mixin.mixInto = function (destClass) {
             this.mixIntoObj(destClass.prototype);
@@ -3761,11 +3556,9 @@ Docs & License: https://fullcalendar.io/
     */
     var EmitterMixin = /** @class */ (function (_super) {
         __extends(EmitterMixin, _super);
-
         function EmitterMixin() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-
         EmitterMixin.prototype.on = function (type, handler) {
             addToHash(this._handlers || (this._handlers = {}), type, handler);
             return this; // for chaining
@@ -3808,12 +3601,10 @@ Docs & License: https://fullcalendar.io/
         };
         return EmitterMixin;
     }(Mixin));
-
     function addToHash(hash, type, handler) {
         (hash[type] || (hash[type] = []))
             .push(handler);
     }
-
     function removeFromHash(hash, type, handler) {
         if (handler) {
             if (hash[type]) {
@@ -3838,7 +3629,6 @@ Docs & License: https://fullcalendar.io/
             this.isHorizontal = isHorizontal;
             this.isVertical = isVertical;
         }
-
         // Queries the els for coordinates and stores them.
         // Call this method before using and of the get* methods below.
         PositionCache.prototype.build = function () {
@@ -3923,7 +3713,6 @@ Docs & License: https://fullcalendar.io/
     var ScrollController = /** @class */ (function () {
         function ScrollController() {
         }
-
         ScrollController.prototype.getMaxScrollTop = function () {
             return this.getScrollHeight() - this.getClientHeight();
         };
@@ -3952,13 +3741,11 @@ Docs & License: https://fullcalendar.io/
     }());
     var ElementScrollController = /** @class */ (function (_super) {
         __extends(ElementScrollController, _super);
-
         function ElementScrollController(el) {
             var _this = _super.call(this) || this;
             _this.el = el;
             return _this;
         }
-
         ElementScrollController.prototype.getScrollTop = function () {
             return this.el.scrollTop;
         };
@@ -3987,11 +3774,9 @@ Docs & License: https://fullcalendar.io/
     }(ScrollController));
     var WindowScrollController = /** @class */ (function (_super) {
         __extends(WindowScrollController, _super);
-
         function WindowScrollController() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-
         WindowScrollController.prototype.getScrollTop = function () {
             return window.pageYOffset;
         };
@@ -4024,7 +3809,6 @@ Docs & License: https://fullcalendar.io/
     */
     var ScrollComponent = /** @class */ (function (_super) {
         __extends(ScrollComponent, _super);
-
         function ScrollComponent(overflowX, overflowY) {
             var _this = _super.call(this, createElement('div', {
                 className: 'fc-scroller'
@@ -4034,7 +3818,6 @@ Docs & License: https://fullcalendar.io/
             _this.applyOverflow();
             return _this;
         }
-
         // sets to natural height, unlocks overflow
         ScrollComponent.prototype.clear = function () {
             this.setHeight('auto');
@@ -4089,7 +3872,6 @@ Docs & License: https://fullcalendar.io/
             this.calendarOptions = calendarOptions;
             this.processIconOverride();
         }
-
         Theme.prototype.processIconOverride = function () {
             if (this.iconOverrideOption) {
                 this.setIconOverride(this.calendarOptions[this.iconOverrideOption]);
@@ -4154,7 +3936,6 @@ Docs & License: https://fullcalendar.io/
             this.eventOrderSpecs = parseFieldSpecs(options.eventOrder);
             this.nextDayThreshold = createDuration(options.nextDayThreshold);
         }
-
         ComponentContext.prototype.extend = function (options, view) {
             return new ComponentContext(this.calendar, this.theme, this.dateEnv, options || this.options, view || this.view);
         };
@@ -4164,7 +3945,6 @@ Docs & License: https://fullcalendar.io/
         function Component() {
             this.uid = String(guid++);
         }
-
         Component.addEqualityFuncs = function (newFuncs) {
             this.prototype.equalityFuncs = __assign({}, this.prototype.equalityFuncs, newFuncs);
         };
@@ -4201,7 +3981,6 @@ Docs & License: https://fullcalendar.io/
         return Component;
     }());
     Component.prototype.equalityFuncs = {};
-
     /*
     Reuses old values when equal. If anything is unequal, returns newProps as-is.
     Great for PureComponent, but won't be feasible with React, so just eliminate and use React's DOM diffing.
@@ -4235,13 +4014,11 @@ Docs & License: https://fullcalendar.io/
     */
     var DateComponent = /** @class */ (function (_super) {
         __extends(DateComponent, _super);
-
         function DateComponent(el) {
             var _this = _super.call(this) || this;
             _this.el = el;
             return _this;
         }
-
         DateComponent.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
             removeElement(this.el);
@@ -4306,7 +4083,6 @@ Docs & License: https://fullcalendar.io/
     DateComponent.prototype.bgSegSelector = '.fc-bgevent:not(.fc-nonbusiness)';
 
     var uid$1 = 0;
-
     function createPlugin(input) {
         return {
             id: String(uid$1++),
@@ -4338,7 +4114,6 @@ Docs & License: https://fullcalendar.io/
             optionChangeHandlers: input.optionChangeHandlers || {}
         };
     }
-
     var PluginSystem = /** @class */ (function () {
         function PluginSystem() {
             this.hooks = {
@@ -4370,7 +4145,6 @@ Docs & License: https://fullcalendar.io/
             };
             this.addedHash = {};
         }
-
         PluginSystem.prototype.add = function (plugin) {
             if (!this.addedHash[plugin.id]) {
                 this.addedHash[plugin.id] = true;
@@ -4383,7 +4157,6 @@ Docs & License: https://fullcalendar.io/
         };
         return PluginSystem;
     }());
-
     function combineHooks(hooks0, hooks1) {
         return {
             reducers: hooks0.reducers.concat(hooks1.reducers),
@@ -4492,13 +4265,11 @@ Docs & License: https://fullcalendar.io/
         };
         xhr.send(body);
     }
-
     function injectQueryStringParams(url, params) {
         return url +
             (url.indexOf('?') === -1 ? '?' : '&') +
             encodeParams(params);
     }
-
     function encodeParams(params) {
         var parts = [];
         for (var key in params) {
@@ -4536,7 +4307,6 @@ Docs & License: https://fullcalendar.io/
     var JsonFeedEventSourcePlugin = createPlugin({
         eventSourceDefs: [eventSourceDef$2]
     });
-
     function buildRequestParams(meta, range, calendar) {
         var dateEnv = calendar.dateEnv;
         var startParam;
@@ -4623,7 +4393,6 @@ Docs & License: https://fullcalendar.io/
     var SimpleRecurrencePlugin = createPlugin({
         recurringTypes: [recurring]
     });
-
     function expandRanges(daysOfWeek, startTime, framingRange, dateEnv) {
         var dowHash = daysOfWeek ? arrayToHash(daysOfWeek) : null;
         var dayMarker = startOfDay(framingRange.start);
@@ -4656,7 +4425,6 @@ Docs & License: https://fullcalendar.io/
             plugins: handlePlugins
         }
     });
-
     function handleEventSources(inputs, calendar, deepEqual) {
         var unfoundSources = hashValuesToArray(calendar.state.eventSources);
         var newInputs = [];
@@ -4686,7 +4454,6 @@ Docs & License: https://fullcalendar.io/
             calendar.addEventSource(newInput);
         }
     }
-
     // shortcoming: won't remove plugins
     function handlePlugins(inputs, calendar) {
         calendar.addPluginInputs(inputs); // will gracefully handle duplicates
@@ -4772,12 +4539,10 @@ Docs & License: https://fullcalendar.io/
         'buttonText',
         'buttonIcons'
     ];
-
     // Merges an array of option objects into a single object
     function mergeOptions(optionObjs) {
         return mergeProps(optionObjs, complexOptions);
     }
-
     // TODO: move this stuff to a "plugin"-related file...
     var INTERNAL_PLUGINS = [
         ArrayEventSourcePlugin,
@@ -4786,7 +4551,6 @@ Docs & License: https://fullcalendar.io/
         SimpleRecurrencePlugin,
         DefaultOptionChangeHandlers
     ];
-
     function refinePluginDefs(pluginInputs) {
         var plugins = [];
         for (var _i = 0, pluginInputs_1 = pluginInputs; _i < pluginInputs_1.length; _i++) {
@@ -4829,7 +4593,6 @@ Docs & License: https://fullcalendar.io/
         eventLimitText: 'more',
         noEventsMessage: 'No events to display'
     };
-
     function parseRawLocales(explicitRawLocales) {
         var defaultCode = explicitRawLocales.length > 0 ? explicitRawLocales[0].code : 'en';
         var globalArray = window['FullCalendarLocalesAll'] || []; // from locales-all.js
@@ -4850,7 +4613,6 @@ Docs & License: https://fullcalendar.io/
             defaultCode: defaultCode
         };
     }
-
     function buildLocale(inputSingular, available) {
         if (typeof inputSingular === 'object' && !Array.isArray(inputSingular)) {
             return parseLocale(inputSingular.code, [inputSingular.code], inputSingular);
@@ -4858,13 +4620,11 @@ Docs & License: https://fullcalendar.io/
             return queryLocale(inputSingular, available);
         }
     }
-
     function queryLocale(codeArg, available) {
         var codes = [].concat(codeArg || []); // will convert to array
         var raw = queryRawLocale(codes, available) || RAW_EN_LOCALE;
         return parseLocale(codeArg, codes, raw);
     }
-
     function queryRawLocale(codes, available) {
         for (var i = 0; i < codes.length; i++) {
             var parts = codes[i].toLocaleLowerCase().split('-');
@@ -4877,7 +4637,6 @@ Docs & License: https://fullcalendar.io/
         }
         return null;
     }
-
     function parseLocale(codeArg, codes, raw) {
         var merged = mergeProps([RAW_EN_LOCALE, raw], ['buttonText']);
         delete merged.code; // don't want this part of the options
@@ -4898,7 +4657,6 @@ Docs & License: https://fullcalendar.io/
             this.dynamicOverrides = {};
             this.compute();
         }
-
         OptionsManager.prototype.mutate = function (updates, removals, isDynamic) {
             if (!Object.keys(updates).length && !removals.length) {
                 return;
@@ -4938,19 +4696,15 @@ Docs & License: https://fullcalendar.io/
     }());
 
     var calendarSystemClassMap = {};
-
     function registerCalendarSystem(name, theClass) {
         calendarSystemClassMap[name] = theClass;
     }
-
     function createCalendarSystem(name) {
         return new calendarSystemClassMap[name]();
     }
-
     var GregorianCalendarSystem = /** @class */ (function () {
         function GregorianCalendarSystem() {
         }
-
         GregorianCalendarSystem.prototype.getMarkerYear = function (d) {
             return d.getUTCFullYear();
         };
@@ -4971,7 +4725,6 @@ Docs & License: https://fullcalendar.io/
     registerCalendarSystem('gregory', GregorianCalendarSystem);
 
     var ISO_RE = /^\s*(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/;
-
     function parse(str) {
         var m = ISO_RE.exec(str);
         if (m) {
@@ -5017,7 +4770,6 @@ Docs & License: https://fullcalendar.io/
             this.weekLabel = settings.weekLabel != null ? settings.weekLabel : settings.locale.options.weekLabel;
             this.cmdFormatter = settings.cmdFormatter;
         }
-
         // Creating / Parsing
         DateEnv.prototype.createMarker = function (input) {
             var meta = this.createMarkerMeta(input);
@@ -5313,12 +5065,10 @@ Docs & License: https://fullcalendar.io/
         failure: Function
     };
     var uid$2 = 0;
-
     function doesSourceNeedRange(eventSource, calendar) {
         var defs = calendar.pluginSystem.hooks.eventSourceDefs;
         return !defs[eventSource.sourceDefId].ignoreRange;
     }
-
     function parseEventSource(raw, calendar) {
         var defs = calendar.pluginSystem.hooks.eventSourceDefs;
         for (var i = defs.length - 1; i >= 0; i--) { // later-added plugins take precedence
@@ -5332,7 +5082,6 @@ Docs & License: https://fullcalendar.io/
         }
         return null;
     }
-
     function parseEventSourceProps(raw, meta, sourceDefId, calendar) {
         var leftovers0 = {};
         var props = refineProps(raw, SIMPLE_SOURCE_PROPS, {}, leftovers0);
@@ -5379,9 +5128,7 @@ Docs & License: https://fullcalendar.io/
                 return eventSources;
         }
     }
-
     var uid$3 = 0;
-
     function addSources(eventSourceHash, sources, fetchRange, calendar) {
         var hash = {};
         for (var _i = 0, sources_1 = sources; _i < sources_1.length; _i++) {
@@ -5393,19 +5140,16 @@ Docs & License: https://fullcalendar.io/
         }
         return __assign({}, eventSourceHash, hash);
     }
-
     function removeSource(eventSourceHash, sourceId) {
         return filterHash(eventSourceHash, function (eventSource) {
             return eventSource.sourceId !== sourceId;
         });
     }
-
     function fetchDirtySources(sourceHash, fetchRange, calendar) {
         return fetchSourcesByIds(sourceHash, filterHash(sourceHash, function (eventSource) {
             return isSourceDirty(eventSource, fetchRange, calendar);
         }), fetchRange, calendar);
     }
-
     function isSourceDirty(eventSource, fetchRange, calendar) {
         if (!doesSourceNeedRange(eventSource, calendar)) {
             return !eventSource.latestFetchId;
@@ -5417,7 +5161,6 @@ Docs & License: https://fullcalendar.io/
                 fetchRange.end > eventSource.fetchRange.end;
         }
     }
-
     function fetchSourcesByIds(prevSources, sourceIdHash, fetchRange, calendar) {
         var nextSources = {};
         for (var sourceId in prevSources) {
@@ -5430,7 +5173,6 @@ Docs & License: https://fullcalendar.io/
         }
         return nextSources;
     }
-
     function fetchSource(eventSource, fetchRange, calendar) {
         var sourceDef = calendar.pluginSystem.hooks.eventSourceDefs[eventSource.sourceDefId];
         var fetchId = String(uid$3++);
@@ -5476,7 +5218,6 @@ Docs & License: https://fullcalendar.io/
         });
         return __assign({}, eventSource, {isFetching: true, latestFetchId: fetchId});
     }
-
     function receiveResponse(sourceHash, sourceId, fetchId, fetchRange) {
         var _a;
         var eventSource = sourceHash[sourceId];
@@ -5488,7 +5229,6 @@ Docs & License: https://fullcalendar.io/
         }
         return sourceHash;
     }
-
     function excludeStaticSources(eventSources, calendar) {
         return filterHash(eventSources, function (eventSource) {
             return doesSourceNeedRange(eventSource, calendar);
@@ -5503,7 +5243,6 @@ Docs & License: https://fullcalendar.io/
             this.calendar = calendar;
             this.initHiddenDays();
         }
-
         /* Date Range Computation
         ------------------------------------------------------------------------------------------------------------------*/
         // Builds a structure with info about what the dates/ranges will be for the "prev" view.
@@ -5670,13 +5409,11 @@ Docs & License: https://fullcalendar.io/
                     start = startOfDay(start);
                 }
             }
-
             function computeRes() {
                 start = dateEnv.startOf(date, alignment);
                 end = dateEnv.add(start, duration);
                 res = {start: start, end: end};
             }
-
             computeRes();
             // if range is completely enveloped by hidden days, go past the hidden days
             if (!this.trimHiddenDays(res)) {
@@ -5821,7 +5558,6 @@ Docs & License: https://fullcalendar.io/
         };
         return DateProfileGenerator;
     }());
-
     // TODO: find a way to avoid comparing DateProfiles. it's tedious
     function isDateProfilesEqual(p0, p1) {
         return rangesEqual(p0.validRange, p1.validRange) &&
@@ -5863,7 +5599,6 @@ Docs & License: https://fullcalendar.io/
         // console.log(action.type, nextState)
         return nextState;
     }
-
     function reduceViewType(currentViewType, action) {
         switch (action.type) {
             case 'SET_VIEW_TYPE':
@@ -5872,7 +5607,6 @@ Docs & License: https://fullcalendar.io/
                 return currentViewType;
         }
     }
-
     function reduceDateProfile(currentDateProfile, action, currentDate, viewType, calendar) {
         var newDateProfile;
         switch (action.type) {
@@ -5908,7 +5642,6 @@ Docs & License: https://fullcalendar.io/
             return currentDateProfile;
         }
     }
-
     function reduceCurrentDate(currentDate, action, dateProfile) {
         switch (action.type) {
             case 'PREV':
@@ -5930,7 +5663,6 @@ Docs & License: https://fullcalendar.io/
                 return currentDate;
         }
     }
-
     function reduceDateSelection(currentSelection, action, calendar) {
         switch (action.type) {
             case 'SELECT_DATES':
@@ -5941,7 +5673,6 @@ Docs & License: https://fullcalendar.io/
                 return currentSelection;
         }
     }
-
     function reduceSelectedEvent(currentInstanceId, action) {
         switch (action.type) {
             case 'SELECT_EVENT':
@@ -5952,7 +5683,6 @@ Docs & License: https://fullcalendar.io/
                 return currentInstanceId;
         }
     }
-
     function reduceEventDrag(currentDrag, action, sources, calendar) {
         switch (action.type) {
             case 'SET_EVENT_DRAG':
@@ -5969,7 +5699,6 @@ Docs & License: https://fullcalendar.io/
                 return currentDrag;
         }
     }
-
     function reduceEventResize(currentResize, action, sources, calendar) {
         switch (action.type) {
             case 'SET_EVENT_RESIZE':
@@ -5986,7 +5715,6 @@ Docs & License: https://fullcalendar.io/
                 return currentResize;
         }
     }
-
     function computeLoadingLevel(eventSources) {
         var cnt = 0;
         for (var sourceId in eventSources) {
@@ -6002,7 +5730,6 @@ Docs & License: https://fullcalendar.io/
         end: null,
         allDay: Boolean
     };
-
     function parseDateSpan(raw, dateEnv, defaultDuration) {
         var span = parseOpenDateSpan(raw, dateEnv);
         var range = span.range;
@@ -6018,7 +5745,6 @@ Docs & License: https://fullcalendar.io/
         }
         return span;
     }
-
     /*
     TODO: somehow combine with parseRange?
     Will return null if the start/end props were present but parsed invalidly.
@@ -6041,13 +5767,11 @@ Docs & License: https://fullcalendar.io/
         leftovers.allDay = allDay;
         return leftovers;
     }
-
     function isDateSpansEqual(span0, span1) {
         return rangesEqual(span0.range, span1.range) &&
             span0.allDay === span1.allDay &&
             isSpanPropsEqual(span0, span1);
     }
-
     // the NON-DATE-RELATED props
     function isSpanPropsEqual(span0, span1) {
         for (var propName in span1) {
@@ -6066,7 +5790,6 @@ Docs & License: https://fullcalendar.io/
         }
         return true;
     }
-
     function buildDateSpanApi(span, dateEnv) {
         return {
             start: dateEnv.toDate(span.range.start),
@@ -6076,7 +5799,6 @@ Docs & License: https://fullcalendar.io/
             allDay: span.allDay
         };
     }
-
     function buildDatePointApi(span, dateEnv) {
         return {
             date: dateEnv.toDate(span.range.start),
@@ -6084,7 +5806,6 @@ Docs & License: https://fullcalendar.io/
             allDay: span.allDay
         };
     }
-
     function fabricateEventRange(dateSpan, eventUiBases, calendar) {
         var def = parseEventDef({editable: false}, '', // sourceId
             dateSpan.allDay, true, // hasEnd
@@ -6110,7 +5831,6 @@ Docs & License: https://fullcalendar.io/
         }
         return hash;
     }
-
     function ensureViewDef(viewType, hash, defaultConfigs, overrideConfigs) {
         if (hash[viewType]) {
             return hash[viewType];
@@ -6121,7 +5841,6 @@ Docs & License: https://fullcalendar.io/
         }
         return viewDef;
     }
-
     function buildViewDef(viewType, hash, defaultConfigs, overrideConfigs) {
         var defaultConfig = defaultConfigs[viewType];
         var overrideConfig = overrideConfigs[viewType];
@@ -6156,7 +5875,6 @@ Docs & License: https://fullcalendar.io/
             overrides: __assign({}, (superDef ? superDef.overrides : {}), (overrideConfig ? overrideConfig.options : {}))
         };
     }
-
     function findViewNameBySubclass(viewSubclass, configs) {
         var superProto = Object.getPrototypeOf(viewSubclass.prototype);
         for (var viewType in configs) {
@@ -6172,12 +5890,10 @@ Docs & License: https://fullcalendar.io/
     function parseViewConfigs(inputs) {
         return mapHash(inputs, parseViewConfig);
     }
-
     var VIEW_DEF_PROPS = {
         type: String,
         class: null
     };
-
     function parseViewConfig(input) {
         if (typeof input === 'function') {
             input = {class: input};
@@ -6199,7 +5915,6 @@ Docs & License: https://fullcalendar.io/
             return buildViewSpec(viewDef, overrideConfigs, optionsManager);
         });
     }
-
     function buildViewSpec(viewDef, overrideConfigs, optionsManager) {
         var durationInput = viewDef.overrides.duration ||
             viewDef.defaults.duration ||
@@ -6253,7 +5968,6 @@ Docs & License: https://fullcalendar.io/
 
     var Toolbar = /** @class */ (function (_super) {
         __extends(Toolbar, _super);
-
         function Toolbar(extraClassName) {
             var _this = _super.call(this) || this;
             _this._renderLayout = memoizeRendering(_this.renderLayout, _this.unrenderLayout);
@@ -6265,7 +5979,6 @@ Docs & License: https://fullcalendar.io/
             _this.el = createElement('div', {className: 'fc-toolbar ' + extraClassName});
             return _this;
         }
-
         Toolbar.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
             this._renderLayout.unrender(); // should unrender everything else
@@ -6414,7 +6127,6 @@ Docs & License: https://fullcalendar.io/
 
     var CalendarComponent = /** @class */ (function (_super) {
         __extends(CalendarComponent, _super);
-
         function CalendarComponent(el) {
             var _this = _super.call(this) || this;
             _this.elClassNames = [];
@@ -6429,7 +6141,6 @@ Docs & License: https://fullcalendar.io/
             });
             return _this;
         }
-
         CalendarComponent.prototype.render = function (props, context) {
             this.freezeHeight();
             var title = this.computeTitle(props.dateProfile, props.viewSpec.options);
@@ -6648,7 +6359,6 @@ Docs & License: https://fullcalendar.io/
         }
         return this.context.dateEnv.formatRange(range.start, range.end, createFormatter(viewOptions.titleFormat || computeTitleFormat(dateProfile), viewOptions.titleRangeSeparator), {isEndExclusive: dateProfile.isRangeAllDay});
     }
-
     // Generates the format string that should be used to generate the title for the current date range.
     // Attempts to compute the most appropriate format if not explicitly specified with `titleFormat`.
     function computeTitleFormat(dateProfile) {
@@ -6668,12 +6378,10 @@ Docs & License: https://fullcalendar.io/
             }
         }
     }
-
     // build a context scoped to the view
     function buildComponentContext(context, viewSpec, view) {
         return context.extend(viewSpec.options, view);
     }
-
     // Plugin
     // -----------------------------------------------------------------------------------------------------------------
     function buildViewPropTransformers(theClasses) {
@@ -6686,12 +6394,10 @@ Docs & License: https://fullcalendar.io/
         function Interaction(settings) {
             this.component = settings.component;
         }
-
         Interaction.prototype.destroy = function () {
         };
         return Interaction;
     }());
-
     function parseInteractionSettings(component, input) {
         return {
             component: component,
@@ -6699,14 +6405,12 @@ Docs & License: https://fullcalendar.io/
             useEventCenter: input.useEventCenter != null ? input.useEventCenter : true
         };
     }
-
     function interactionSettingsToStore(settings) {
         var _a;
         return _a = {},
             _a[settings.component.uid] = settings,
             _a;
     }
-
     // global state
     var interactionSettingsStore = {};
 
@@ -6715,7 +6419,6 @@ Docs & License: https://fullcalendar.io/
     */
     var EventClicking = /** @class */ (function (_super) {
         __extends(EventClicking, _super);
-
         function EventClicking(settings) {
             var _this = _super.call(this, settings) || this;
             _this.handleSegClick = function (ev, segEl) {
@@ -6745,7 +6448,6 @@ Docs & License: https://fullcalendar.io/
             _this.destroy = listenBySelector(component.el, 'click', component.fgSegSelector + ',' + component.bgSegSelector, _this.handleSegClick);
             return _this;
         }
-
         return EventClicking;
     }(Interaction));
 
@@ -6755,7 +6457,6 @@ Docs & License: https://fullcalendar.io/
     */
     var EventHovering = /** @class */ (function (_super) {
         __extends(EventHovering, _super);
-
         function EventHovering(settings) {
             var _this = _super.call(this, settings) || this;
             // for simulating an eventMouseLeave when the event el is destroyed while mouse is over it
@@ -6784,7 +6485,6 @@ Docs & License: https://fullcalendar.io/
             component.context.calendar.on('eventElRemove', _this.handleEventElRemove);
             return _this;
         }
-
         EventHovering.prototype.destroy = function () {
             this.removeHoverListeners();
             this.component.context.calendar.off('eventElRemove', this.handleEventElRemove);
@@ -6809,11 +6509,9 @@ Docs & License: https://fullcalendar.io/
 
     var StandardTheme = /** @class */ (function (_super) {
         __extends(StandardTheme, _super);
-
         function StandardTheme() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-
         return StandardTheme;
     }(Theme));
     StandardTheme.prototype.classes = {
@@ -6880,7 +6578,6 @@ Docs & License: https://fullcalendar.io/
                     return new calendarInteractionClass(_this);
                 });
         }
-
         Calendar.prototype.addPluginInputs = function (pluginInputs) {
             var pluginDefs = refinePluginDefs(pluginInputs);
             for (var _i = 0, pluginDefs_1 = pluginDefs; _i < pluginDefs_1.length; _i++) {
@@ -7699,7 +7396,6 @@ Docs & License: https://fullcalendar.io/
     function buildComponentContext$1(theme, dateEnv, options) {
         return new ComponentContext(this, theme, dateEnv, options, null);
     }
-
     function buildDateEnv(locale, timeZone, namedTimeZoneImpl, firstDay, weekNumberCalculation, weekLabel, cmdFormatter) {
         return new DateEnv({
             calendarSystem: 'gregory',
@@ -7712,12 +7408,10 @@ Docs & License: https://fullcalendar.io/
             cmdFormatter: cmdFormatter
         });
     }
-
     function buildTheme(calendarOptions) {
         var themeClass = this.pluginSystem.hooks.themeClasses[calendarOptions.themeSystem] || StandardTheme;
         return new themeClass(calendarOptions);
     }
-
     function buildDelayedRerender(wait) {
         var func = this.tryRerender.bind(this);
         if (wait != null) {
@@ -7725,13 +7419,11 @@ Docs & License: https://fullcalendar.io/
         }
         return func;
     }
-
     function buildEventUiBySource(eventSources) {
         return mapHash(eventSources, function (eventSource) {
             return eventSource.ui;
         });
     }
-
     function buildEventUiBases(eventDefs, eventUiSingleBase, eventUiBySource) {
         var eventUiBases = {'': eventUiSingleBase};
         for (var defId in eventDefs) {
@@ -7745,7 +7437,6 @@ Docs & License: https://fullcalendar.io/
 
     var View = /** @class */ (function (_super) {
         __extends(View, _super);
-
         function View(viewSpec, parentEl) {
             var _this = _super.call(this, createElement('div', {className: 'fc-view fc-' + viewSpec.type + '-view'})) || this;
             _this.renderDatesMem = memoizeRendering(_this.renderDatesWrap, _this.unrenderDatesWrap);
@@ -7761,7 +7452,6 @@ Docs & License: https://fullcalendar.io/
             _this.initialize();
             return _this;
         }
-
         View.prototype.initialize = function () {
         };
         Object.defineProperty(View.prototype, "activeStart", {
@@ -8061,7 +7751,6 @@ Docs & License: https://fullcalendar.io/
             this.segs = [];
             this.isSizeDirty = false;
         }
-
         FgEventRenderer.prototype.renderSegs = function (context, segs, mirrorInfo) {
             this.context = context;
             this.rangeUpdated(); // called too frequently :(
@@ -8264,7 +7953,6 @@ Docs & License: https://fullcalendar.io/
         };
         return FgEventRenderer;
     }());
-
     // returns a object with all primitive props that can be compared
     function buildSegCompareObj(seg) {
         var eventDef = seg.eventRange.def;
@@ -8287,7 +7975,6 @@ Docs & License: https://fullcalendar.io/
             this.containerElsByType = {};
             this.segsByType = {};
         }
-
         FillRenderer.prototype.getSegsByType = function (type) {
             return this.segsByType[type] || [];
         };
@@ -8400,7 +8087,6 @@ Docs & License: https://fullcalendar.io/
         function NamedTimeZoneImpl(timeZoneName) {
             this.timeZoneName = timeZoneName;
         }
-
         return NamedTimeZoneImpl;
     }());
 
@@ -8421,7 +8107,6 @@ Docs & License: https://fullcalendar.io/
         function ElementDragging(el) {
             this.emitter = new EmitterMixin();
         }
-
         ElementDragging.prototype.destroy = function () {
         };
         ElementDragging.prototype.setMirrorIsVisible = function (bool) {
@@ -8450,7 +8135,6 @@ Docs & License: https://fullcalendar.io/
             forcedTzo: dateMeta.forcedTzo
         });
     }
-
     function formatRange(startInput, endInput, settings // mixture of env and formatter settings
     ) {
         var dateEnv = buildDateEnv$1(typeof settings === 'object' && settings ? settings : {}); // pass in if non-null object
@@ -8466,7 +8150,6 @@ Docs & License: https://fullcalendar.io/
             isEndExclusive: settings.isEndExclusive
         });
     }
-
     // TODO: more DRY and optimized
     function buildDateEnv$1(settings) {
         var locale = buildLocale(settings.locale || 'en', parseRawLocales([]).map); // TODO: don't hardcode 'en' everywhere
@@ -8484,7 +8167,6 @@ Docs & License: https://fullcalendar.io/
     var DRAG_META_DEFAULTS = {
         create: true
     };
-
     function parseDragMeta(raw) {
         var leftoverProps = {};
         var refined = refineProps(raw, DRAG_META_PROPS, DRAG_META_DEFAULTS, leftoverProps);
@@ -8504,7 +8186,6 @@ Docs & License: https://fullcalendar.io/
             return {weekday: 'long'}; // "Saturday"
         }
     }
-
     function renderDateCell(dateMarker, dateProfile, datesRepDistinctDays, colCnt, colHeadFormat, context, colspan, otherAttrs) {
         var dateEnv = context.dateEnv, theme = context.theme, options = context.options;
         var isDateValid = rangeContainsMarker(dateProfile.activeRange, dateMarker); // TODO: called too frequently. cache somehow.
@@ -8554,14 +8235,12 @@ Docs & License: https://fullcalendar.io/
 
     var DayHeader = /** @class */ (function (_super) {
         __extends(DayHeader, _super);
-
         function DayHeader(parentEl) {
             var _this = _super.call(this) || this;
             _this.renderSkeleton = memoizeRendering(_this._renderSkeleton, _this._unrenderSkeleton);
             _this.parentEl = parentEl;
             return _this;
         }
-
         DayHeader.prototype.render = function (props, context) {
             var dates = props.dates, datesRepDistinctDays = props.datesRepDistinctDays;
             var parts = [];
@@ -8622,7 +8301,6 @@ Docs & License: https://fullcalendar.io/
             this.indices = indices;
             this.cnt = dates.length;
         }
-
         DaySeries.prototype.sliceRange = function (range) {
             var firstIndex = this.getDateDayIndex(range.start); // inclusive first index
             var lastIndex = this.getDateDayIndex(addDays(range.end, -1)); // inclusive last index
@@ -8686,7 +8364,6 @@ Docs & License: https://fullcalendar.io/
             this.cells = this.buildCells();
             this.headerDates = this.buildHeaderDates();
         }
-
         DayTable.prototype.buildCells = function () {
             var rows = [];
             for (var row = 0; row < this.rowCnt; row++) {
@@ -8743,7 +8420,6 @@ Docs & License: https://fullcalendar.io/
             this.sliceEventDrag = memoize(this._sliceInteraction);
             this.sliceEventResize = memoize(this._sliceInteraction);
         }
-
         Slicer.prototype.sliceProps = function (props, dateProfile, nextDayThreshold, calendar, component) {
             var extraArgs = [];
             for (var _i = 5; _i < arguments.length; _i++) {
@@ -8862,7 +8538,6 @@ Docs & License: https://fullcalendar.io/
         };
         return Slicer;
     }());
-
     /*
     for incorporating minTime/maxTime if appropriate
     TODO: should be part of DateProfile!

@@ -81,9 +81,9 @@ The plugin allso adds the following methods to the plot object:
 (function ($) {
     function init(plot) {
         var selection = {
-            first: {x: -1, y: -1}, second: {x: -1, y: -1},
-            show: false,
-            active: false
+          first: {x: -1, y: -1}, second: {x: -1, y: -1},
+          show: false,
+          active: false
         };
 
         // FIXME: The drag handling implemented here should be
@@ -95,11 +95,11 @@ The plugin allso adds the following methods to the plot object:
 
         var mouseUpHandler = null;
 
-        function onMouseMove(e) {
+      function onMouseMove(e) {
             if (selection.active) {
-                updateSelection(e);
+              updateSelection(e);
 
-                plot.getPlaceholder().trigger("plotselecting", [getSelection()]);
+              plot.getPlaceholder().trigger("plotselecting", [getSelection()]);
             }
         }
 
@@ -107,40 +107,40 @@ The plugin allso adds the following methods to the plot object:
             if (e.which != 1)  // only accept left-click
                 return;
 
-            // cancel out any text selections
+          // cancel out any text selections
             document.body.focus();
 
             // prevent text selection and drag in old-school browsers
             if (document.onselectstart !== undefined && savedhandlers.onselectstart == null) {
-                savedhandlers.onselectstart = document.onselectstart;
-                document.onselectstart = function () {
-                    return false;
-                };
+              savedhandlers.onselectstart = document.onselectstart;
+              document.onselectstart = function () {
+                return false;
+              };
             }
             if (document.ondrag !== undefined && savedhandlers.ondrag == null) {
-                savedhandlers.ondrag = document.ondrag;
-                document.ondrag = function () {
-                    return false;
-                };
+              savedhandlers.ondrag = document.ondrag;
+              document.ondrag = function () {
+                return false;
+              };
             }
 
-            setSelectionPos(selection.first, e);
+          setSelectionPos(selection.first, e);
 
-            selection.active = true;
+          selection.active = true;
 
-            // this is a bit silly, but we have to use a closure to be
-            // able to whack the same handler again
-            mouseUpHandler = function (e) {
-                onMouseUp(e);
-            };
+          // this is a bit silly, but we have to use a closure to be
+          // able to whack the same handler again
+          mouseUpHandler = function (e) {
+            onMouseUp(e);
+          };
 
-            $(document).one("mouseup", mouseUpHandler);
+          $(document).one("mouseup", mouseUpHandler);
         }
 
         function onMouseUp(e) {
             mouseUpHandler = null;
 
-            // revert drag stuff for old-school browsers
+          // revert drag stuff for old-school browsers
             if (document.onselectstart !== undefined)
                 document.onselectstart = savedhandlers.onselectstart;
             if (document.ondrag !== undefined)
@@ -153,9 +153,9 @@ The plugin allso adds the following methods to the plot object:
             if (selectionIsSane())
                 triggerSelectedEvent();
             else {
-                // this counts as a clear
-                plot.getPlaceholder().trigger("plotunselected", []);
-                plot.getPlaceholder().trigger("plotselecting", [null]);
+              // this counts as a clear
+              plot.getPlaceholder().trigger("plotunselected", []);
+              plot.getPlaceholder().trigger("plotselecting", [null]);
             }
 
             return false;
@@ -165,13 +165,13 @@ The plugin allso adds the following methods to the plot object:
             if (!selectionIsSane())
                 return null;
 
-            if (!selection.show) return null;
+          if (!selection.show) return null;
 
             var r = {}, c1 = selection.first, c2 = selection.second;
             $.each(plot.getAxes(), function (name, axis) {
                 if (axis.used) {
-                    var p1 = axis.c2p(c1[axis.direction]), p2 = axis.c2p(c2[axis.direction]);
-                    r[name] = {from: Math.min(p1, p2), to: Math.max(p1, p2)};
+                  var p1 = axis.c2p(c1[axis.direction]), p2 = axis.c2p(c2[axis.direction]);
+                  r[name] = {from: Math.min(p1, p2), to: Math.max(p1, p2)};
                 }
             });
             return r;
@@ -180,20 +180,20 @@ The plugin allso adds the following methods to the plot object:
         function triggerSelectedEvent() {
             var r = getSelection();
 
-            plot.getPlaceholder().trigger("plotselected", [r]);
+          plot.getPlaceholder().trigger("plotselected", [r]);
 
             // backwards-compat stuff, to be removed in future
             if (r.xaxis && r.yaxis)
-                plot.getPlaceholder().trigger("selected", [{
-                    x1: r.xaxis.from,
-                    y1: r.yaxis.from,
-                    x2: r.xaxis.to,
-                    y2: r.yaxis.to
-                }]);
+              plot.getPlaceholder().trigger("selected", [{
+                x1: r.xaxis.from,
+                y1: r.yaxis.from,
+                x2: r.xaxis.to,
+                y2: r.yaxis.to
+              }]);
         }
 
         function clamp(min, value, max) {
-            return value < min ? min : (value > max ? max : value);
+          return value < min ? min : (value > max ? max : value);
         }
 
         function setSelectionPos(pos, e) {
@@ -215,11 +215,11 @@ The plugin allso adds the following methods to the plot object:
                 return;
 
             setSelectionPos(selection.second, pos);
-            if (selectionIsSane()) {
-                selection.show = true;
-                plot.triggerRedrawOverlay();
-            } else
-                clearSelection(true);
+          if (selectionIsSane()) {
+            selection.show = true;
+            plot.triggerRedrawOverlay();
+          } else
+            clearSelection(true);
         }
 
         function clearSelection(preventEvent) {
@@ -227,7 +227,7 @@ The plugin allso adds the following methods to the plot object:
                 selection.show = false;
                 plot.triggerRedrawOverlay();
                 if (!preventEvent)
-                    plot.getPlaceholder().trigger("plotunselected", []);
+                  plot.getPlaceholder().trigger("plotunselected", []);
             }
         }
 
@@ -252,42 +252,42 @@ The plugin allso adds the following methods to the plot object:
             // backwards-compat stuff - to be removed in future
             if (!ranges[key]) {
                 axis = coord == "x" ? plot.getXAxes()[0] : plot.getYAxes()[0];
-                from = ranges[coord + "1"];
-                to = ranges[coord + "2"];
+              from = ranges[coord + "1"];
+              to = ranges[coord + "2"];
             }
 
-            // auto-reverse as an added bonus
-            if (from != null && to != null && from > to) {
-                var tmp = from;
-                from = to;
-                to = tmp;
-            }
+          // auto-reverse as an added bonus
+          if (from != null && to != null && from > to) {
+            var tmp = from;
+            from = to;
+            to = tmp;
+          }
 
-            return {from: from, to: to, axis: axis};
+          return {from: from, to: to, axis: axis};
         }
 
-        function setSelection(ranges, preventEvent) {
+      function setSelection(ranges, preventEvent) {
             var axis, range, o = plot.getOptions();
 
-            if (o.selection.mode == "y") {
-                selection.first.x = 0;
-                selection.second.x = plot.width();
-            } else {
-                range = extractRange(ranges, "x");
+        if (o.selection.mode == "y") {
+          selection.first.x = 0;
+          selection.second.x = plot.width();
+        } else {
+          range = extractRange(ranges, "x");
 
-                selection.first.x = range.axis.p2c(range.from);
-                selection.second.x = range.axis.p2c(range.to);
-            }
+          selection.first.x = range.axis.p2c(range.from);
+          selection.second.x = range.axis.p2c(range.to);
+        }
 
-            if (o.selection.mode == "x") {
-                selection.first.y = 0;
-                selection.second.y = plot.height();
-            } else {
-                range = extractRange(ranges, "y");
+        if (o.selection.mode == "x") {
+          selection.first.y = 0;
+          selection.second.y = plot.height();
+        } else {
+          range = extractRange(ranges, "y");
 
-                selection.first.y = range.axis.p2c(range.from);
-                selection.second.y = range.axis.p2c(range.to);
-            }
+          selection.first.y = range.axis.p2c(range.from);
+          selection.second.y = range.axis.p2c(range.to);
+        }
 
             selection.show = true;
             plot.triggerRedrawOverlay();
@@ -305,13 +305,13 @@ The plugin allso adds the following methods to the plot object:
         plot.setSelection = setSelection;
         plot.getSelection = getSelection;
 
-        plot.hooks.bindEvents.push(function (plot, eventHolder) {
-            var o = plot.getOptions();
-            if (o.selection.mode != null) {
-                eventHolder.mousemove(onMouseMove);
-                eventHolder.mousedown(onMouseDown);
-            }
-        });
+      plot.hooks.bindEvents.push(function (plot, eventHolder) {
+        var o = plot.getOptions();
+        if (o.selection.mode != null) {
+          eventHolder.mousemove(onMouseMove);
+          eventHolder.mousedown(onMouseDown);
+        }
+      });
 
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
@@ -342,11 +342,11 @@ The plugin allso adds the following methods to the plot object:
             }
         });
 
-        plot.hooks.shutdown.push(function (plot, eventHolder) {
+      plot.hooks.shutdown.push(function (plot, eventHolder) {
             eventHolder.unbind("mousemove", onMouseMove);
             eventHolder.unbind("mousedown", onMouseDown);
 
-            if (mouseUpHandler)
+        if (mouseUpHandler)
                 $(document).unbind("mouseup", mouseUpHandler);
         });
 

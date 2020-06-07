@@ -1,19 +1,19 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-        typeof define === 'function' && define.amd ? define(factory) :
-            (global = global || self, (global.FullCalendarLocales = global.FullCalendarLocales || {}, global.FullCalendarLocales['pt-br'] = factory()));
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global = global || self, (global.FullCalendarLocales = global.FullCalendarLocales || {}, global.FullCalendarLocales['pt-br'] = factory()));
 }(this, function () {
-    'use strict';
+  'use strict';
 
-    var ptBr = {
-        code: "pt-br",
-        buttonText: {
-            prev: "Anterior",
-            next: "Próximo",
-            today: "Hoje",
-            month: "Mês",
-            week: "Semana",
-            day: "Dia",
+  var ptBr = {
+    code: "pt-br",
+    buttonText: {
+      prev: "Anterior",
+      next: "Próximo",
+      today: "Hoje",
+      month: "Mês",
+      week: "Semana",
+      day: "Dia",
             list: "Lista"
         },
         weekLabel: "Sm",

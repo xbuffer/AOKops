@@ -1,14 +1,14 @@
 (function (jsGrid) {
 
-    jsGrid.locales.pl = {
-        grid: {
-            noDataContent: "Nie znaleziono",
-            deleteConfirm: "Czy jesteś pewien?",
-            pagerFormat: "Strony: {first} {prev} {pages} {next} {last} &nbsp;&nbsp; {pageIndex} z {pageCount}",
-            pagePrevText: "Poprzednia",
-            pageNextText: "Następna",
-            pageFirstText: "Pierwsza",
-            pageLastText: "Ostatnia",
+  jsGrid.locales.pl = {
+    grid: {
+      noDataContent: "Nie znaleziono",
+      deleteConfirm: "Czy jesteś pewien?",
+      pagerFormat: "Strony: {first} {prev} {pages} {next} {last} &nbsp;&nbsp; {pageIndex} z {pageCount}",
+      pagePrevText: "Poprzednia",
+      pageNextText: "Następna",
+      pageFirstText: "Pierwsza",
+      pageLastText: "Ostatnia",
             loadMessage: "Proszę czekać...",
             invalidMessage: "Wprowadzono nieprawidłowe dane!"
         },

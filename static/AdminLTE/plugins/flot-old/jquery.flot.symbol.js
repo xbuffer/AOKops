@@ -34,15 +34,15 @@ The symbols are accessed as strings through the standard symbol options:
                 ctx.lineTo(x - size, y);
             },
             triangle: function (ctx, x, y, radius, shadow) {
-                // pi * r^2 = 1/2 * s^2 * sin (pi / 3)  =>  s = r * sqrt(2 * pi / sin(pi / 3))
-                var size = radius * Math.sqrt(2 * Math.PI / Math.sin(Math.PI / 3));
-                var height = size * Math.sin(Math.PI / 3);
-                ctx.moveTo(x - size / 2, y + height / 2);
-                ctx.lineTo(x + size / 2, y + height / 2);
-                if (!shadow) {
-                    ctx.lineTo(x, y - height / 2);
-                    ctx.lineTo(x - size / 2, y + height / 2);
-                }
+              // pi * r^2 = 1/2 * s^2 * sin (pi / 3)  =>  s = r * sqrt(2 * pi / sin(pi / 3))
+              var size = radius * Math.sqrt(2 * Math.PI / Math.sin(Math.PI / 3));
+              var height = size * Math.sin(Math.PI / 3);
+              ctx.moveTo(x - size / 2, y + height / 2);
+              ctx.lineTo(x + size / 2, y + height / 2);
+              if (!shadow) {
+                ctx.lineTo(x, y - height / 2);
+                ctx.lineTo(x - size / 2, y + height / 2);
+              }
             },
             cross: function (ctx, x, y, radius, shadow) {
                 // pi * r^2 = (2s)^2  =>  s = r * sqrt(pi)/2
@@ -59,11 +59,11 @@ The symbols are accessed as strings through the standard symbol options:
             series.points.symbol = handlers[s];
     }
 
-    function init(plot) {
+  function init(plot) {
         plot.hooks.processDatapoints.push(processRawData);
     }
 
-    $.plot.plugins.push({
+  $.plot.plugins.push({
         init: init,
         name: 'symbols',
         version: '1.0'

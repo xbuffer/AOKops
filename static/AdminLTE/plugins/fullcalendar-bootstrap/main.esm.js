@@ -39,17 +39,14 @@ function __extends(d, b) {
     function __() {
         this.constructor = d;
     }
-
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
 var BootstrapTheme = /** @class */ (function (_super) {
     __extends(BootstrapTheme, _super);
-
     function BootstrapTheme() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-
     return BootstrapTheme;
 }(Theme));
 BootstrapTheme.prototype.classes = {

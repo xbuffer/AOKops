@@ -44,7 +44,6 @@ Docs & License: https://fullcalendar.io/
         function __() {
             this.constructor = d;
         }
-
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
@@ -65,13 +64,11 @@ Docs & License: https://fullcalendar.io/
     */
     var TimeGridEventRenderer = /** @class */ (function (_super) {
         __extends(TimeGridEventRenderer, _super);
-
         function TimeGridEventRenderer(timeGrid) {
             var _this = _super.call(this) || this;
             _this.timeGrid = timeGrid;
             return _this;
         }
-
         TimeGridEventRenderer.prototype.renderSegs = function (context, segs, mirrorInfo) {
             _super.prototype.renderSegs.call(this, context, segs, mirrorInfo);
             // TODO: dont do every time. memoize
@@ -333,7 +330,6 @@ Docs & License: https://fullcalendar.io/
         }
         return levels;
     }
-
     // For every segment, figure out the other segments that are in subsequent
     // levels that also occupy the same vertical space. Accumulate in seg.forwardSegs
     function computeForwardSlotSegs(levels) {
@@ -353,7 +349,6 @@ Docs & License: https://fullcalendar.io/
             }
         }
     }
-
     // Figure out which path forward (via seg.forwardSegs) results in the longest path until
     // the furthest edge is reached. The number of segments in this path will be seg.forwardPressure
     function computeSlotSegPressures(seg) {
@@ -373,7 +368,6 @@ Docs & License: https://fullcalendar.io/
             seg.forwardPressure = forwardPressure;
         }
     }
-
     // Find all the segments in `otherSegs` that vertically collide with `seg`.
     // Append into an optionally-supplied `results` array and return.
     function computeSlotSegCollisions(seg, otherSegs, results) {
@@ -387,12 +381,10 @@ Docs & License: https://fullcalendar.io/
         }
         return results;
     }
-
     // Do these segments occupy the same vertical space?
     function isSlotSegCollision(seg1, seg2) {
         return seg1.bottom > seg2.top && seg1.top < seg2.bottom;
     }
-
     function buildTimeGridSegCompareObj(seg) {
         var obj = core.buildSegCompareObj(seg);
         obj.forwardPressure = seg.forwardPressure;
@@ -402,11 +394,9 @@ Docs & License: https://fullcalendar.io/
 
     var TimeGridMirrorRenderer = /** @class */ (function (_super) {
         __extends(TimeGridMirrorRenderer, _super);
-
         function TimeGridMirrorRenderer() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-
         TimeGridMirrorRenderer.prototype.attachSegs = function (segs, mirrorInfo) {
             this.segsByCol = this.timeGrid.groupSegsByCol(segs);
             this.timeGrid.attachSegsByCol(this.segsByCol, this.timeGrid.mirrorContainerEls);
@@ -429,13 +419,11 @@ Docs & License: https://fullcalendar.io/
 
     var TimeGridFillRenderer = /** @class */ (function (_super) {
         __extends(TimeGridFillRenderer, _super);
-
         function TimeGridFillRenderer(timeGrid) {
             var _this = _super.call(this) || this;
             _this.timeGrid = timeGrid;
             return _this;
         }
-
         TimeGridFillRenderer.prototype.attachSegs = function (type, segs) {
             var timeGrid = this.timeGrid;
             var containerEls;
@@ -474,7 +462,6 @@ Docs & License: https://fullcalendar.io/
     ];
     var TimeGrid = /** @class */ (function (_super) {
         __extends(TimeGrid, _super);
-
         function TimeGrid(el, renderProps) {
             var _this = _super.call(this, el) || this;
             _this.isSlatSizesDirty = false;
@@ -497,7 +484,6 @@ Docs & License: https://fullcalendar.io/
             _this.renderEventResize = core.memoizeRendering(_this._renderEventResize, _this._unrenderEventResize, [renderColumns]);
             return _this;
         }
-
         /* Options
         ------------------------------------------------------------------------------------------------------------------*/
         // Parses various options into properties of this object
@@ -969,11 +955,9 @@ Docs & License: https://fullcalendar.io/
 
     var AllDaySplitter = /** @class */ (function (_super) {
         __extends(AllDaySplitter, _super);
-
         function AllDaySplitter() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-
         AllDaySplitter.prototype.getKeyInfo = function () {
             return {
                 allDay: {},
@@ -1007,7 +991,6 @@ Docs & License: https://fullcalendar.io/
     // Responsible for managing width/height.
     var AbstractTimeGridView = /** @class */ (function (_super) {
         __extends(AbstractTimeGridView, _super);
-
         function AbstractTimeGridView() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.splitter = new AllDaySplitter();
@@ -1067,7 +1050,6 @@ Docs & License: https://fullcalendar.io/
             };
             return _this;
         }
-
         AbstractTimeGridView.prototype.render = function (props, context) {
             _super.prototype.render.call(this, props, context);
             this.renderSkeleton(context);
@@ -1257,7 +1239,6 @@ Docs & License: https://fullcalendar.io/
 
     var SimpleTimeGrid = /** @class */ (function (_super) {
         __extends(SimpleTimeGrid, _super);
-
         function SimpleTimeGrid(timeGrid) {
             var _this = _super.call(this, timeGrid.el) || this;
             _this.buildDayRanges = core.memoize(buildDayRanges);
@@ -1265,7 +1246,6 @@ Docs & License: https://fullcalendar.io/
             _this.timeGrid = timeGrid;
             return _this;
         }
-
         SimpleTimeGrid.prototype.firstContext = function (context) {
             context.calendar.registerInteractiveComponent(this, {
                 el: this.timeGrid.el
@@ -1309,7 +1289,6 @@ Docs & License: https://fullcalendar.io/
         };
         return SimpleTimeGrid;
     }(core.DateComponent));
-
     function buildDayRanges(dayTable, dateProfile, dateEnv) {
         var ranges = [];
         for (var _i = 0, _a = dayTable.headerDates; _i < _a.length; _i++) {
@@ -1321,14 +1300,11 @@ Docs & License: https://fullcalendar.io/
         }
         return ranges;
     }
-
     var TimeGridSlicer = /** @class */ (function (_super) {
         __extends(TimeGridSlicer, _super);
-
         function TimeGridSlicer() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-
         TimeGridSlicer.prototype.sliceRange = function (range, dayRanges) {
             var segs = [];
             for (var col = 0; col < dayRanges.length; col++) {
@@ -1350,13 +1326,11 @@ Docs & License: https://fullcalendar.io/
 
     var TimeGridView = /** @class */ (function (_super) {
         __extends(TimeGridView, _super);
-
         function TimeGridView() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.buildDayTable = core.memoize(buildDayTable);
             return _this;
         }
-
         TimeGridView.prototype.render = function (props, context) {
             _super.prototype.render.call(this, props, context); // for flags for updateSize. also _renderSkeleton/_unrenderSkeleton
             var _a = this.props, dateProfile = _a.dateProfile, dateProfileGenerator = _a.dateProfileGenerator;
@@ -1409,7 +1383,6 @@ Docs & License: https://fullcalendar.io/
         };
         return TimeGridView;
     }(AbstractTimeGridView));
-
     function buildDayTable(dateProfile, dateProfileGenerator) {
         var daySeries = new core.DaySeries(dateProfile.renderRange, dateProfileGenerator);
         return new core.DayTable(daySeries, false);

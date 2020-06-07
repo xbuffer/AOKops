@@ -26,11 +26,9 @@
         }
         return -1;
     }
-
     function isWindow(obj) {
         return obj != null && obj === obj.window;
     }
-
     function isArraylike(obj) {
         var length = "length" in obj && obj.length, ltype = typeof obj;
         if (ltype === "function" || isWindow(obj)) {
@@ -41,11 +39,9 @@
         }
         return ltype === "array" || length === 0 || typeof length === "number" && length > 0 && length - 1 in obj;
     }
-
     function isValidElement(elem) {
         return elem instanceof Element;
     }
-
     function DependencyLib(elem) {
         if (elem instanceof DependencyLib) {
             return elem;
@@ -60,11 +56,9 @@
             }
         }
     }
-
     function getWindow(elem) {
         return isWindow(elem) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
     }
-
     DependencyLib.prototype = {
         on: function (events, handler) {
             if (isValidElement(this[0])) {

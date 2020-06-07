@@ -1,14 +1,14 @@
 (function (jsGrid) {
 
-    jsGrid.locales.ka = {
-        grid: {
-            noDataContent: "მონაცემები ცარიელია.",
-            deleteConfirm: "ნამდვილად გსურთ ჩანაწერის წაშლა?",
-            pagerFormat: "გვერდები: {first} {prev} {pages} {next} {last} &nbsp;&nbsp; {pageIndex} - {pageCount} დან.",
-            pagePrevText: "<",
-            pageNextText: ">",
-            pageFirstText: "<<",
-            pageLastText: ">>",
+  jsGrid.locales.ka = {
+    grid: {
+      noDataContent: "მონაცემები ცარიელია.",
+      deleteConfirm: "ნამდვილად გსურთ ჩანაწერის წაშლა?",
+      pagerFormat: "გვერდები: {first} {prev} {pages} {next} {last} &nbsp;&nbsp; {pageIndex} - {pageCount} დან.",
+      pagePrevText: "<",
+      pageNextText: ">",
+      pageFirstText: "<<",
+      pageLastText: ">>",
             loadMessage: "გთხოვთ დაიცადოთ...",
             invalidMessage: "შეყვანილია არასწორი მონაცემები!"
         },
@@ -32,14 +32,14 @@
         },
 
         validators: {
-            required: {message: "ველი აუცილებელია შესავსებად."},
-            rangeLength: {message: "შეყვანილი ჩანაწერის ზომა არ ექვემდებარება დიაპაზონს."},
-            minLength: {message: "შეყვანილი ჩანაწერის ზომა საკმაოდ პატარა არის."},
-            maxLength: {message: "შეყვანილი ჩანაწერის ზომა საკმაოდ დიდი არის."},
-            pattern: {message: "შეყვანილი მნიშვნელობა არ ემთხვევა მითითებულ შაბლონს."},
-            range: {message: "შეყვანილი ინფორმაცია არ ჯდება დიაპაზონში."},
-            min: {message: "შეყვანილი ინფორმაციის ზომა საკმაოდ პატარა არის."},
-            max: {message: "შეყვანილი ინფორმაციის ზომა საკმაოდ დიდი არის."}
+          required: {message: "ველი აუცილებელია შესავსებად."},
+          rangeLength: {message: "შეყვანილი ჩანაწერის ზომა არ ექვემდებარება დიაპაზონს."},
+          minLength: {message: "შეყვანილი ჩანაწერის ზომა საკმაოდ პატარა არის."},
+          maxLength: {message: "შეყვანილი ჩანაწერის ზომა საკმაოდ დიდი არის."},
+          pattern: {message: "შეყვანილი მნიშვნელობა არ ემთხვევა მითითებულ შაბლონს."},
+          range: {message: "შეყვანილი ინფორმაცია არ ჯდება დიაპაზონში."},
+          min: {message: "შეყვანილი ინფორმაციის ზომა საკმაოდ პატარა არის."},
+          max: {message: "შეყვანილი ინფორმაციის ზომა საკმაოდ დიდი არის."}
         }
     };
 

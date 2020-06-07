@@ -73,7 +73,6 @@
         isoDateTime: "yyyy-mm-dd'T'HH:MM:ss",
         isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
     };
-
     function getTokenizer(opts) {
         if (!opts.tokenizer) {
             var tokens = [];
@@ -85,11 +84,9 @@
         }
         return opts.tokenizer;
     }
-
     function isValidDate(dateParts, currentResult) {
         return !isFinite(dateParts.rawday) || dateParts.day == "29" && !isFinite(dateParts.rawyear) || new Date(dateParts.date.getFullYear(), isFinite(dateParts.rawmonth) ? dateParts.month : dateParts.date.getMonth() + 1, 0).getDate() >= dateParts.day ? currentResult : false;
     }
-
     function isDateInRange(dateParts, opts) {
         var result = true;
         if (opts.min) {
@@ -109,7 +106,6 @@
         }
         return result;
     }
-
     function parse(format, dateObjValue, opts, raw) {
         var mask = "", match;
         while (match = getTokenizer(opts).exec(format)) {
@@ -141,19 +137,16 @@
         }
         return mask;
     }
-
     function pad(val, len) {
         val = String(val);
         len = len || 2;
         while (val.length < len) val = "0" + val;
         return val;
     }
-
     function analyseMask(maskString, format, opts) {
         var dateObj = {
             date: new Date(1, 0, 1)
         }, targetProp, mask = maskString, match, dateOperation, targetValidator;
-
         function extendProperty(value) {
             var correctedValue = value.replace(/[^0-9]/g, "0");
             if (correctedValue != value) {
@@ -164,13 +157,11 @@
             }
             return correctedValue;
         }
-
         function setValue(dateObj, value, opts) {
             dateObj[targetProp] = extendProperty(value);
             dateObj["raw" + targetProp] = value;
             if (dateOperation !== undefined) dateOperation.call(dateObj.date, targetProp == "month" ? parseInt(dateObj[targetProp]) - 1 : dateObj[targetProp]);
         }
-
         if (typeof mask === "string") {
             while (match = getTokenizer(opts).exec(format)) {
                 var value = mask.slice(0, match[0].length);
@@ -188,7 +179,6 @@
         }
         return undefined;
     }
-
     Inputmask.extendAliases({
         datetime: {
             mask: function (opts) {

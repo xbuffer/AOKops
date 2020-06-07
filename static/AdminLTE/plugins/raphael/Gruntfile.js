@@ -2,15 +2,15 @@
 
 module.exports = function (grunt) {
 
-    var pkg = grunt.file.readJSON("package.json");
+  var pkg = grunt.file.readJSON("package.json");
 
-    // Project configuration.
-    grunt.initConfig({
-        // Metadata.
-        pkg: pkg,
-        banner: grunt.file.read("dev/copy.js").replace(/@VERSION/, pkg.version),
-        // Task configuration.
-        uglify: {
+  // Project configuration.
+  grunt.initConfig({
+    // Metadata.
+    pkg: pkg,
+    banner: grunt.file.read("dev/copy.js").replace(/@VERSION/, pkg.version),
+    // Task configuration.
+    uglify: {
             options: {
                 banner: "<%= banner %>"
             },
