@@ -21,7 +21,7 @@ def report(request):
         if sn:
             asset_obj = models.Asset.objects.filter(sn=sn)
             if asset_obj:
-                pass
+                update_asset = asset_handler.UpdateAsset(request, asset_obj[0], data)
                 return HttpResponse("资产数据已经更新!")
             else:
                 obj = asset_handler.NewAsset(request, data)
